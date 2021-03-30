@@ -1,0 +1,1 @@
+GRANT all on grade.* to 'grade_user'@'localhost' identified by 'rootroot';
