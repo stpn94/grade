@@ -99,8 +99,9 @@ ALTER TABLE grade.std_detail
 		)
 		REFERENCES grade.student ( -- 학생
 			stdNo -- 학생번호
-		);
-		
+		)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
 
 -- 점수
 ALTER TABLE grade.Score
@@ -121,5 +122,3 @@ ALTER TABLE grade.Score
 		REFERENCES grade.subject ( -- 과목
 			subjNo -- 과목번호
 		);
-		
-	

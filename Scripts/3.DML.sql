@@ -213,9 +213,6 @@ values
 (2029,8,87 ),
 (2030,8,73 );
 
-delete 
-from std_detail
-where stdNo = 2001;
 
 insert into std_detail
 values

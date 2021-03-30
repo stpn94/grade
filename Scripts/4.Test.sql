@@ -88,15 +88,20 @@ select stdNo, stdName, ban from student;
 select stdNo,pic,gender,birthday from newoldtable;
 -- 학생 추가
 
-INSERT INTO student VALUES (2032,'아이다',2);
+INSERT INTO student VALUES (2031,'아이다',1);
 
 -- 학생 수정
 
 update student set stdName = '아니니' , ban= 2 where stdNo=2099;
 -- 학생 삭제
 
-delete from std_detail where stdNo=2032;
+delete from student where stdNo=2031;
 
+select * from std_detail;
+
+insert into std_detail
+values
+(2031,null ,1,19940817);
 
 delete
 from student
