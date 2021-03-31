@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import grade_ui.ScoreManager;
 import grade_ui.StudentManagerUI;
 import grade_ui_list.StudentTablePanel;
 
@@ -20,6 +21,7 @@ public class Main extends JFrame implements ActionListener {
 	private JButton btnVerifyByAll;
 	private StudentManagerUI studentFrame;
 	private JButton btnStudent;
+	private JButton btnScore;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -60,7 +62,8 @@ public class Main extends JFrame implements ActionListener {
 		btnStudent.addActionListener(this);
 		pBtns.add(btnStudent);
 		
-		JButton btnScore = new JButton("New button");
+		btnScore = new JButton("성적 입력");
+		btnScore.addActionListener(this);
 		pBtns.add(btnScore);
 		
 		JButton btnSubject = new JButton("New button");
@@ -81,6 +84,9 @@ public class Main extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnScore) {
+			actionPerformedBtnScore(e);
+		}
 		if (e.getSource() == btnStudent) {
 			actionPerformedBtnStudent(e);
 		}
@@ -93,5 +99,9 @@ public class Main extends JFrame implements ActionListener {
 	protected void actionPerformedBtnStudent(ActionEvent e) {
 		studentFrame.setVisible(true);
 
+	}
+	protected void actionPerformedBtnScore(ActionEvent e) {
+		ScoreManager frame = new ScoreManager();
+		frame.setVisible(true);
 	}
 }

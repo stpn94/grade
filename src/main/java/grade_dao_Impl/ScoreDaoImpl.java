@@ -24,7 +24,6 @@ public class ScoreDaoImpl implements ScoreDao {
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 
 			for (int i = 0; i < student.getJumsu().size(); i++) {
-				System.out.println(i);
 				pstmt.setInt(1, student.getJumsu().get(i).getJumsu());
 				pstmt.setInt(2, student.getStdNo());
 				pstmt.setInt(3, student.getJumsu().get(i).getSubject().getSubjNo());

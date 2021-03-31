@@ -102,12 +102,14 @@ public class ScorePanel extends JPanel {
 	}
 
 	public void clearTf() {
-		// TODO Auto-generated method stub
-		
+		tfKor.setText("");
+		tfEng.setText("");
+		tfMath.setText("");
+		tfSoc.setText("");
+		tfSci.setText("");
 	}
 	
 	public void validCheck() {
-		// TODO Auto-generated method stub
 		
 	}
 

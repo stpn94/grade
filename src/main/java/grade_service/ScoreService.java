@@ -18,7 +18,7 @@ public class ScoreService {
 	}
 	
 	public void modifyScore(StudentDto student) {
-		stdDao.updateStudent(student);
+		scoDao.updateScore(student);
 	}
 	
 }

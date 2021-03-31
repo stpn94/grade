@@ -76,8 +76,9 @@ public class ScoreStdPanel extends JPanel{
 	
 
 	public void clearTf() {
-		// 초기화
-		
+		tfStdNo.setText("");
+		tfStdName.setText("");
+		tfBan.setText("");
 	}
 	
 	public void validCheck() {
