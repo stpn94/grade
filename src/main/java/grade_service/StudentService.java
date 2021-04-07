@@ -4,14 +4,18 @@ import java.util.List;
 
 import grade_dao.BanDao;
 import grade_dao.StudentDao;
+import grade_dao.SubjectDao;
 import grade_dao_Impl.BanDaoImpl;
 import grade_dao_Impl.StudentDaoImpl;
+import grade_dao_Impl.SubjectDaoImpl;
 import grade_dto.BanDto;
 import grade_dto.StudentDto;
+import grade_dto.SubjectDto;
 
 public class StudentService {
 	private StudentDao stdDao = StudentDaoImpl.getInstance();
 	private BanDao banDao = BanDaoImpl.getInstance();
+	private SubjectDao subjDao = SubjectDaoImpl.getInstance();
 	
 	public List<StudentDto> showStudents() {
 		return stdDao.selectStudentByAll();
@@ -34,6 +38,10 @@ public class StudentService {
 	
 	public List<BanDto> showBanList(){
 		return banDao.selectBanByAll();
+	}
+	
+	public List<SubjectDto> showSubjectList(){
+		return subjDao.selectSubjectByAll();
 	}
 	
 	public void addStudent(StudentDto student) {

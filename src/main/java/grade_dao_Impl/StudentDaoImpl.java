@@ -187,18 +187,18 @@ public class StudentDaoImpl implements StudentDao {
 		}
 		return null;
 	}
-
+//	+ " where banCode = (? ,'A01' and 'A02')" 
+//	+ " order by ifnull(? , 평균) desc limit ?";
 	@Override
 	public List<StudentDto> selectStudents(StudentDto student) {
 		String sql = "select stdNo, stdName, banCode," 
 					+ " 국어, 영어, 수학, 사회, 과학, 평균" 
 					+ " from vw_student_table"
-					+ " where banCode = ?" + " order by ? desc limit ?";
+					+ " order by ?  desc limit ?";
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, student.getBan().getBanCode());
-			pstmt.setString(2, student.getOrder());
-			pstmt.setInt(3, student.getLimit());
+			pstmt.setString(1, student.getOrder());
+			pstmt.setInt(2, student.getLimit());
 			
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
@@ -209,6 +209,7 @@ public class StudentDaoImpl implements StudentDao {
 					return list;
 				}
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -9,7 +9,6 @@ public class StudentDto {
 	private int stdNo;
 	private String stdName;
 	private BanDto ban;
-
 	private List<ScoreDto> jumsu;
 
 	private String order;
@@ -38,8 +37,7 @@ public class StudentDto {
 		return true;
 	}
 
-	public StudentDto() {
-	}
+	
 
 	public StudentDto(int stdNo) {
 		this.stdNo = stdNo;
@@ -76,6 +74,13 @@ public class StudentDto {
 		this.ban = ban;
 		this.jumsu = jumsu;
 		this.avg = avg;
+	}
+
+
+
+	public StudentDto(String order, int limit) {
+		this.order = order;
+		this.limit = limit;
 	}
 
 	public int getStdNo() {

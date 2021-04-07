@@ -60,8 +60,8 @@ public class StudentPanel extends AbstractContentPanel<StudentDto> {
 		pItem.add(tfStdNo);
 		tfStdNo.setColumns(10);
 		
-		JPanel panel = new JPanel();
-		pItem.add(panel);
+				JPanel panel = new JPanel();
+				pItem.add(panel);
 		
 		JLabel lblStdName = new JLabel("이름");
 		lblStdName.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -71,19 +71,18 @@ public class StudentPanel extends AbstractContentPanel<StudentDto> {
 		pItem.add(tfStdName);
 		tfStdName.setColumns(10);
 		
-		JPanel panel_1 = new JPanel();
-		pItem.add(panel_1);
+				JPanel panel_1 = new JPanel();
+				pItem.add(panel_1);
 		
 		JLabel lblBan = new JLabel("반");
 		lblBan.setHorizontalAlignment(SwingConstants.RIGHT);
 		pItem.add(lblBan);
 		
 		cmbBan = new JComboBox();
-//		cmbBan.addItemListener(this);
 		pItem.add(cmbBan);
 		
-		JPanel panel_2 = new JPanel();
-		pItem.add(panel_2);
+				JPanel panel_2 = new JPanel();
+				pItem.add(panel_2);
 	}
 
 	@Override

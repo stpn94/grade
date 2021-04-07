@@ -3,8 +3,8 @@ package grade_dao;
 import java.util.List;
 
 import grade_dto.BanDto;
-import grade_dto.ScoreDto;
 import grade_dto.StudentDto;
+import grade_dto.SubjectDto;
 
 public interface StudentDao {
 
