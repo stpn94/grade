@@ -32,7 +32,6 @@ public abstract class AbstractCustomTablePanel<T> extends JPanel {
 		return list.get(idx);
 	}*/
 	
-	
 	public void loadData() {
 		initList();
 		setList();
@@ -57,13 +56,13 @@ public abstract class AbstractCustomTablePanel<T> extends JPanel {
 	}
 	
 	public DefaultTableModel getModel() {
-		CustomTableModel model = new CustomTableModel(/* getData(), getColumnNames() */);
+		CustomTableModel model = new CustomTableModel();
 		return model;
 	}
 	
-	public Object[][] getData() {
-		return new Object[][] {	{null, null, null},	};
-	}
+//	public Object[][] getData() {
+//		return new Object[][] {	{null, null, null},	};
+//	}
 	
 	public void setList() {
 		Object[][] data = new Object[list.size()][];

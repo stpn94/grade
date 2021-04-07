@@ -8,9 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import grade_dto.ScoreDto;
 import grade_dto.StudentDto;
 import grade_ui.exception.InvalidCheckException;
+import java.awt.Color;
 
 public class ScorePanel extends JPanel {
 	private JTextField tfKor;
@@ -25,12 +25,14 @@ public class ScorePanel extends JPanel {
 	}
 	
 	private void initialize() {
-		setLayout(new GridLayout(0, 1, 0, 0));
+		setBackground(Color.GREEN);
+		setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JPanel pScore = new JPanel();
 		add(pScore);
-		pScore.setLayout(new GridLayout(0, 10, 0, 0));
+		pScore.setLayout(new GridLayout(0, 6, 10, 0));
 		
+
 		JLabel lblKor = new JLabel("국어");
 		lblKor.setHorizontalAlignment(SwingConstants.TRAILING);
 		pScore.add(lblKor);
@@ -70,6 +72,10 @@ public class ScorePanel extends JPanel {
 		tfSci = new JTextField();
 		pScore.add(tfSci);
 		tfSci.setColumns(10);
+		
+		
+		JPanel panel = new JPanel();
+		add(panel);
 	}
 
 	public void setItem(StudentDto std) {

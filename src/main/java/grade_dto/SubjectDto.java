@@ -39,6 +39,6 @@ public class SubjectDto {
 
 	@Override
 	public String toString() {
-		return String.format("SubjectDto [subjNo=%s, subjName=%s]", subjNo, subjName);
+		return String.format("%s(%d)", subjName, subjNo);
 	}
 }

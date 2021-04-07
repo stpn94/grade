@@ -1,5 +1,7 @@
 package grade_ui;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -18,8 +20,9 @@ import grade_service.StudentService;
 import grade_ui.exception.InvalidCheckException;
 import grade_ui_content.ScorePanel;
 import grade_ui_content.ScoreStdPanel;
+import grade_ui_list.ScoreTablePanel;
 
-public class ScoreManager extends JFrame implements ActionListener {
+public class ScoreManagerUI extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JButton btnVerify;
@@ -30,66 +33,83 @@ public class ScoreManager extends JFrame implements ActionListener {
 	private JButton btnAdd;
 	private ScorePanel scorePanel;
 	private JButton btnClear;
+	private ScoreTablePanel pList;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JPanel panel_2;
+	private JPanel panel_3;
 
 	private void setService() {
 		service = new StudentService();
 		service1 = new ScoreService();
 	}
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ScoreManager frame = new ScoreManager();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	public ScoreManager() {
+	
+	public ScoreManagerUI() {
 		setService();
 
 		initialize();
+
+		tableLoadData();
+	}
+
+	protected void tableLoadData() {
+		pList.setService(service);
+		pList.loadData();
 	}
 
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 629, 222);
+		setBounds(100, 100, 854, 445);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0, 1, 10, 40));
 
+		JPanel pContent = new JPanel();
+		contentPane.add(pContent);
+		pContent.setLayout(new GridLayout(0, 1, 0, 0));
+
 		JPanel pStd = new JPanel();
-		contentPane.add(pStd);
-		pStd.setLayout(new GridLayout(2, 2, 10, 0));
+		pContent.add(pStd);
+		pStd.setLayout(new GridLayout(0, 2, 10, 0));
+
+		panel = new JPanel();
+		pStd.add(panel);
+
+		panel_1 = new JPanel();
+		pStd.add(panel_1);
 
 		pStudent = new ScoreStdPanel();
 		pStd.add(pStudent);
 		pStudent.setLayout(new GridLayout(1, 0, 0, 0));
+
+		panel_3 = new JPanel();
+		pStd.add(panel_3);
 
 		JPanel pBtns = new JPanel();
 		pStd.add(pBtns);
 
 		btnVerify = new JButton("조회");
 		btnVerify.addActionListener(this);
-		FlowLayout fl_pBtns = new FlowLayout(FlowLayout.CENTER, 5, 5);
-		pBtns.setLayout(fl_pBtns);
+		pBtns.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 3));
 		pBtns.add(btnVerify);
 
+		panel_2 = new JPanel();
+		pStd.add(panel_2);
+
 		JPanel pScore = new JPanel();
-		contentPane.add(pScore);
+		pContent.add(pScore);
 		pScore.setLayout(new GridLayout(0, 1, 0, 0));
 
 		scorePanel = new ScorePanel();
+		scorePanel.setPreferredSize(new Dimension(100, 100));
+
 		pScore.add(scorePanel);
 
 		JPanel pBtns2 = new JPanel();
 		pScore.add(pBtns2);
-		pBtns2.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+		pBtns2.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
 
 		btnAdd = new JButton("성적 입력");
 		btnAdd.addActionListener(this);
@@ -98,6 +118,9 @@ public class ScoreManager extends JFrame implements ActionListener {
 		btnClear = new JButton("초기화");
 		btnClear.addActionListener(this);
 		pBtns2.add(btnClear);
+
+		pList = new ScoreTablePanel();
+		contentPane.add(pList);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -116,7 +139,7 @@ public class ScoreManager extends JFrame implements ActionListener {
 		} catch (NumberFormatException e3) {
 			JOptionPane.showMessageDialog(null, "형식을 확인해 주세요.");
 		}
-		
+
 	}
 
 	protected void actionPerformedBtnVerify(ActionEvent e) {
@@ -136,6 +159,7 @@ public class ScoreManager extends JFrame implements ActionListener {
 		if (student != null) {
 			service1.modifyScore(student);
 		}
+		pList.loadData();
 	}
 
 	protected void actionPerformedBtnClear(ActionEvent e) {

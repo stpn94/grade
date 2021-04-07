@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -29,24 +31,21 @@ import com.toedter.calendar.JDateChooser;
 
 import grade_dto.StudentDetailDto;
 import grade_dto.StudentDto;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class StudentDetailPanel extends AbstractContentPanel<StudentDetailDto> implements ActionListener {
-	private JTextField tfStdNo;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	private String imgPath = System.getProperty("user.dir") + File.separator + "image" + File.separator;
 	private JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
 
 	private JLabel lblPic;
+	private JButton butAddPic;
+	private JDateChooser dateBirthday;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JRadioButton rdbtnFemale;
 	private JRadioButton rdbtnMale;
-	private JDateChooser dateBirthday;
-	private JButton butAddPic;
+	private JTextField tfStdNo;
 
 	public StudentDetailPanel() {
-		setBorder(new TitledBorder(null, "세부 정보", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		initialize();
 		loadPic(null);
 	}
@@ -65,6 +64,7 @@ public class StudentDetailPanel extends AbstractContentPanel<StudentDetailDto> i
 	}
 
 	private void initialize() {
+		setBorder(new TitledBorder(null, "세부 정보", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new BorderLayout(0, 0));
 
 		JPanel pTop = new JPanel();
@@ -130,7 +130,8 @@ public class StudentDetailPanel extends AbstractContentPanel<StudentDetailDto> i
 	@Override
 	public void setItem(StudentDetailDto item) {
 		tfStdNo.setText(String.valueOf(item.getStdNo()));
-		byte[] iconBytes =item.getPic();
+		byte[] iconBytes = item.getPic();
+		System.out.println(iconBytes);
 		ImageIcon icon = new ImageIcon(iconBytes);
 		Image changeImage = icon.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon = new ImageIcon(changeImage);

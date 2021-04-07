@@ -39,7 +39,7 @@ public class BanDto {
 
 	@Override
 	public String toString() {
-		return String.format("BanDto [banNo=%s, banCode=%s]", banNo, banCode);
+		return String.format("%s(%d)", banCode, banNo);
 	}
 	
 	

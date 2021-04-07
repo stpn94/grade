@@ -16,7 +16,6 @@ import javax.swing.border.TitledBorder;
 import grade_dto.BanDto;
 import grade_dto.StudentDto;
 import grade_service.StudentService;
-import grade_ui.SearchManagerUI;
 import grade_ui.exception.InvalidCheckException;
 
 public class StudentPanel extends AbstractContentPanel<StudentDto> {
@@ -51,7 +50,7 @@ public class StudentPanel extends AbstractContentPanel<StudentDto> {
 		JPanel pItem = new JPanel();
 		pItem.setBorder(new TitledBorder(null, "학생정보", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		add(pItem);
-		pItem.setLayout(new GridLayout(0, 2, 10, 30));
+		pItem.setLayout(new GridLayout(3, 3, 10, 30));
 		
 		JLabel lblStdNo = new JLabel("학번");
 		lblStdNo.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -61,6 +60,9 @@ public class StudentPanel extends AbstractContentPanel<StudentDto> {
 		pItem.add(tfStdNo);
 		tfStdNo.setColumns(10);
 		
+		JPanel panel = new JPanel();
+		pItem.add(panel);
+		
 		JLabel lblStdName = new JLabel("이름");
 		lblStdName.setHorizontalAlignment(SwingConstants.RIGHT);
 		pItem.add(lblStdName);
@@ -69,6 +71,9 @@ public class StudentPanel extends AbstractContentPanel<StudentDto> {
 		pItem.add(tfStdName);
 		tfStdName.setColumns(10);
 		
+		JPanel panel_1 = new JPanel();
+		pItem.add(panel_1);
+		
 		JLabel lblBan = new JLabel("반");
 		lblBan.setHorizontalAlignment(SwingConstants.RIGHT);
 		pItem.add(lblBan);
@@ -76,6 +81,9 @@ public class StudentPanel extends AbstractContentPanel<StudentDto> {
 		cmbBan = new JComboBox();
 //		cmbBan.addItemListener(this);
 		pItem.add(cmbBan);
+		
+		JPanel panel_2 = new JPanel();
+		pItem.add(panel_2);
 	}
 
 	@Override
