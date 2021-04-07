@@ -26,7 +26,7 @@ public class StudentDaoTest {
 		}
 	}
 	
-	@Test
+//	@Test
 	public void test05selectStudentByJumsuZero() {
 		System.out.printf("%s()%n", "test04selectStudentByJumsuZero");
 		List<StudentDto> stdList = dao.selectStudentByJumsuZero();
@@ -51,7 +51,7 @@ public class StudentDaoTest {
 	@Test
 	public void test07SelectStudentByName() {
 		System.out.printf("%s()%n", "testSelectStudentByName");
-		StudentDto std = new StudentDto("한동성");
+		StudentDto std = new StudentDto("임성준");
 		
 		List<StudentDto> stdList = dao.selectStudentByName(std);
 		Assert.assertNotNull(stdList);
@@ -65,6 +65,16 @@ public class StudentDaoTest {
 		System.out.printf("%s()%n", "test06SelectStudentByBan");
 		BanDto banCode = new BanDto("A01");
 		List<StudentDto> stdList = dao.selectStudentByBan(banCode);
+		Assert.assertNotNull(stdList);
+		for (StudentDto t : stdList) {
+			System.out.println(t);
+		}
+	}
+	@Test
+	public void test07SelectStudents() {
+		System.out.printf("%s()%n", "test07SelectStudents");
+		StudentDto search = new StudentDto(new BanDto("A01"),"국어",20);
+		List<StudentDto> stdList = dao.selectStudents(search);
 		Assert.assertNotNull(stdList);
 		for (StudentDto t : stdList) {
 			System.out.println(t);

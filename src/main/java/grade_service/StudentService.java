@@ -24,6 +24,10 @@ public class StudentService {
 		return stdDao.selectStudentByJumsuZero();
 	}
 	
+	public List<StudentDto> showStudnets(StudentDto student){
+		return stdDao.selectStudents(student);
+	}
+	
 	public List<StudentDto> showStudentsByBan(BanDto ban){
 		return stdDao.selectStudentByBan(ban);
 	}

@@ -6,11 +6,13 @@ public class ScoreDto {
 	
 	private SubjectDto subject;
 	private int jumsu;
-
+	
 	public ScoreDto() {
-		// TODO Auto-generated constructor stub
 	}
 	
+	public ScoreDto(int jumsu) {
+		this.jumsu = jumsu;
+	}
 
 	public ScoreDto(SubjectDto subject, int jumsu) {
 		this.subject = subject;

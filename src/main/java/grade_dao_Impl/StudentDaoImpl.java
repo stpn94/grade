@@ -30,9 +30,9 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public List<StudentDto> selectStudentByAll() {
-		String sql = "select stdNo, stdName, banCode," 
-				+ " subj4, subj국어, 국어, subj5,subj영어,영어, subj6,subj수학, 수학, subj7,subj사회, 사회, subj8,subj과학, 과학,"
-				+ " 평균" + " from vw_student_table;";
+		String sql = "select stdNo, stdName, banCode,"
+				+ " subj4, subj국어, 국어, subj5,subj영어,영어, subj6,subj수학, 수학, subj7,subj사회, 사회, subj8,subj과학, 과학," + " 평균"
+				+ " from vw_student_table;";
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -55,11 +55,11 @@ public class StudentDaoImpl implements StudentDao {
 		BanDto banCode = null;
 		banCode = new BanDto(rs.getString("banCode"));
 		List<ScoreDto> scores = new ArrayList<ScoreDto>();
-		scores.add(new ScoreDto(new SubjectDto(rs.getInt("subj4"),rs.getString("subj국어")), rs.getInt("국어")));
-		scores.add(new ScoreDto(new SubjectDto(rs.getInt("subj5"),rs.getString("subj영어")), rs.getInt("영어")));
-		scores.add(new ScoreDto(new SubjectDto(rs.getInt("subj6"),rs.getString("subj수학")), rs.getInt("수학")));
-		scores.add(new ScoreDto(new SubjectDto(rs.getInt("subj7"),rs.getString("subj사회")), rs.getInt("사회")));
-		scores.add(new ScoreDto(new SubjectDto(rs.getInt("subj8"),rs.getString("subj과학")), rs.getInt("과학")));
+		scores.add(new ScoreDto(new SubjectDto(rs.getInt("subj4"), rs.getString("subj국어")), rs.getInt("국어")));
+		scores.add(new ScoreDto(new SubjectDto(rs.getInt("subj5"), rs.getString("subj영어")), rs.getInt("영어")));
+		scores.add(new ScoreDto(new SubjectDto(rs.getInt("subj6"), rs.getString("subj수학")), rs.getInt("수학")));
+		scores.add(new ScoreDto(new SubjectDto(rs.getInt("subj7"), rs.getString("subj사회")), rs.getInt("사회")));
+		scores.add(new ScoreDto(new SubjectDto(rs.getInt("subj8"), rs.getString("subj과학")), rs.getInt("과학")));
 		double avg = rs.getDouble("평균");
 
 		return new StudentDto(stdNo, stdName, banCode, scores, avg);
@@ -67,8 +67,9 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public List<StudentDto> selectStudentByName(StudentDto student) {
-		String sql = "select stdNo, stdName, banCode," + " subj4,subj국어, 국어, subj5,subj영어, 영어, subj6,subj수학, 수학, subj7,subj사회, 사회, subj8,subj과학, 과학,"
-				+ " 평균" + " from vw_student_table" + " where stdName = ?";
+		String sql = "select stdNo, stdName, banCode,"
+				+ " subj4,subj국어, 국어, subj5,subj영어, 영어, subj6,subj수학, 수학, subj7,subj사회, 사회, subj8,subj과학, 과학," + " 평균"
+				+ " from vw_student_table" + " where stdName = ?";
 		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, student.getStdName());
 			try (ResultSet rs = pstmt.executeQuery()) {
@@ -127,8 +128,9 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public List<StudentDto> selectStudentByBan(BanDto student) {
-		String sql = "select stdNo, stdName, banCode," + " subj4,subj국어, 국어, subj5,subj영어, 영어, subj6,subj수학, 수학, subj7,subj사회, 사회, subj8,subj과학, 과학,"
-				+ " 평균" + " from vw_student_table" + " where banCode = ?";
+		String sql = "select stdNo, stdName, banCode,"
+				+ " subj4,subj국어, 국어, subj5,subj영어, 영어, subj6,subj수학, 수학, subj7,subj사회, 사회, subj8,subj과학, 과학," + " 평균"
+				+ " from vw_student_table" + " where banCode = ?";
 		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, student.getBanCode());
 			try (ResultSet rs = pstmt.executeQuery()) {
@@ -145,12 +147,12 @@ public class StudentDaoImpl implements StudentDao {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public List<StudentDto> selectStudentByJumsuZero() {
-		String sql = "select stdNo, stdName, banCode," + 
-					 " subj4, subj국어, 국어, subj5, subj영어, 영어, subj6, subj수학, 수학, subj7, subj사회, 사회, subj8, subj과학, 과학, 평균" + 
-					 " from vw_student_table where 국어+영어+수학+사회+과학=0";
+		String sql = "select stdNo, stdName, banCode,"
+				+ " subj4, subj국어, 국어, subj5, subj영어, 영어, subj6, subj수학, 수학, subj7, subj사회, 사회, subj8, subj과학, 과학, 평균"
+				+ " from vw_student_table where 국어+영어+수학+사회+과학=0";
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -169,13 +171,14 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public StudentDto selectStudentByNo(StudentDto student) {
-		String sql = "select stdNo, stdName, banCode," + " subj4,subj국어, 국어, subj5,subj영어, 영어, subj6,subj수학, 수학, subj7,subj사회, 사회, subj8,subj과학, 과학,"
-				+ " 평균" + " from vw_student_table" + " where stdNo = ?";
+		String sql = "select stdNo, stdName, banCode,"
+				+ " subj4,subj국어, 국어, subj5,subj영어, 영어, subj6,subj수학, 수학, subj7,subj사회, 사회, subj8,subj과학, 과학," + " 평균"
+				+ " from vw_student_table" + " where stdNo = ?";
 		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, student.getStdNo());
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
-					
+
 					return getStudent(rs);
 				}
 			}
@@ -184,5 +187,67 @@ public class StudentDaoImpl implements StudentDao {
 		}
 		return null;
 	}
-	
+
+	@Override
+	public List<StudentDto> selectStudents(StudentDto student) {
+		String sql = "select stdNo, stdName, banCode," 
+					+ " 국어, 영어, 수학, 사회, 과학, 평균" 
+					+ " from vw_student_table"
+					+ " where banCode = ?" + " order by ? desc limit ?";
+		try (Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, student.getBan().getBanCode());
+			pstmt.setString(2, student.getOrder());
+			pstmt.setInt(3, student.getLimit());
+			
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					List<StudentDto> list = new ArrayList<>();
+					do {
+						list.add(getSearch(rs));
+					} while (rs.next());
+					return list;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+//	@Override
+//	public List<StudentDto> selectStudentByName(StudentDto student) {
+//		String sql = "select stdNo, stdName, banCode,"
+//				+ " subj4,subj국어, 국어, subj5,subj영어, 영어, subj6,subj수학, 수학, subj7,subj사회, 사회, subj8,subj과학, 과학," + " 평균"
+//				+ " from vw_student_table" + " where stdName = ?";
+//		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+//			pstmt.setString(1, student.getStdName());
+//			try (ResultSet rs = pstmt.executeQuery()) {
+//				if (rs.next()) {
+//					List<StudentDto> list = new ArrayList<>();
+//					do {
+//						list.add(getStudent(rs));
+//					} while (rs.next());
+//					return list;
+//				}
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
+	private StudentDto getSearch(ResultSet rs) throws SQLException {
+		int stdNo = rs.getInt("stdNo");
+		String stdName = rs.getString("stdName");
+		BanDto banCode = new BanDto(rs.getString("banCode"));
+		List<ScoreDto> scores = new ArrayList<ScoreDto>();
+		scores.add(new ScoreDto(rs.getInt("국어")));
+		scores.add(new ScoreDto(rs.getInt("영어")));
+		scores.add(new ScoreDto(rs.getInt("수학")));
+		scores.add(new ScoreDto(rs.getInt("사회")));
+		scores.add(new ScoreDto(rs.getInt("과학")));
+		double avg = rs.getDouble("평균");
+		return new StudentDto(stdNo, stdName, banCode, scores, avg);
+	}
+
 }

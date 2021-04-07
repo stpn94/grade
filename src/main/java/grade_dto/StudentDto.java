@@ -11,11 +11,10 @@ public class StudentDto {
 	private BanDto ban;
 
 	private List<ScoreDto> jumsu;
+
+	private String order;
+	private int limit;
 	private double avg;
-
-	
-
-	
 
 	@Override
 	public int hashCode() {
@@ -41,7 +40,7 @@ public class StudentDto {
 
 	public StudentDto() {
 	}
-	
+
 	public StudentDto(int stdNo) {
 		this.stdNo = stdNo;
 	}
@@ -49,9 +48,15 @@ public class StudentDto {
 	public StudentDto(String stdName) {
 		this.stdName = stdName;
 	}
-	
+
 	public StudentDto(BanDto ban) {
 		this.ban = ban;
+	}
+
+	public StudentDto(BanDto ban, String order, int limit) {
+		this.ban = ban;
+		this.order = order;
+		this.limit = limit;
 	}
 
 	public StudentDto(int stdNo, String stdName, BanDto ban) {
@@ -60,12 +65,10 @@ public class StudentDto {
 		this.ban = ban;
 	}
 
-
 	public StudentDto(int stdNo, List<ScoreDto> jumsu) {
 		this.stdNo = stdNo;
 		this.jumsu = jumsu;
 	}
-
 
 	public StudentDto(int stdNo, String stdName, BanDto ban, List<ScoreDto> jumsu, double avg) {
 		this.stdNo = stdNo;
@@ -113,6 +116,22 @@ public class StudentDto {
 
 	public void setAvg(double avg) {
 		this.avg = avg;
+	}
+
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
+	}
+
+	public int getLimit() {
+		return limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
 	}
 
 	@Override

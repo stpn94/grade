@@ -12,6 +12,8 @@ public interface StudentDao {
 
 	List<StudentDto> selectStudentByName(StudentDto student); // 학생이름으로 검색
 	
+	List<StudentDto> selectStudents(StudentDto student); // 학생이름으로 검색
+	
 	StudentDto selectStudentByNo(StudentDto student); // 학생번호로 검색
 	
 	List<StudentDto> selectStudentByBan(BanDto banCode); // 반으로 검색

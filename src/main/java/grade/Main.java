@@ -133,19 +133,20 @@ public class Main extends JFrame implements ActionListener {
 		scoreframe = new ScoreManagerUI();
 		scoreframe.setTitle("성적 관리");
 		scoreframe.setBounds(312, 100, 748, 524);
-		
 		scoreframe.setVisible(true);
 	}
 	protected void actionPerformedBtnSubject(ActionEvent e) {
 		subjbanframe = new Sub_BanManagerUI();
 		subjbanframe.setTitle("성적 및 반 관리");
+		subjbanframe.setBounds(320, 100, 748, 280);
 		subjbanframe.setVisible(true);
 		
 	}
 	protected void actionPerformedBtnBan(ActionEvent e) {
 		subjbanframe = new Sub_BanManagerUI();
-		subjbanframe.setTitle("성적 및 반 관리");
-		subjbanframe.setVisible(true);
+		subjbanframe.setTitle("반 및 성적 관리");
+		subjbanframe.setBounds(320, 350, 748, 280);
 		subjbanframe.tabbedPane.setSelectedComponent(subjbanframe.pBan);
+		subjbanframe.setVisible(true);
 	}
 }

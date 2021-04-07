@@ -209,15 +209,18 @@ from student s
 		join vw_student_table vw on s.stdNo =vw.stdno
 		join ban b on s.ban = b.banNo;
 -- 학생리스트 출력
+
 select stdNo, stdName, banCode,
-	   subj4, 국어, subj5, 영어, subj6, 수학, subj7, 사회, subj8, 과학,
-	   평균
-from vw_student_table;
+	   국어, 영어, 수학, 사회, 과학, 평균
+from vw_student_table
+where banCode = 'A01'
+order by 국어 desc limit 20;
+
 -- 학생이름별 학생리스트 출력
 select stdNo, stdName, banCode,
 	   subj4, 국어, subj5, 영어, subj6, 수학, subj7, 사회, subj8, 과학,
 	   평균
-from vw_student_table
+from vw_student_table;
 where stdName = '황보동명';
 
 
