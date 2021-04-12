@@ -92,7 +92,6 @@ public abstract class AbstractManagerUI<T> extends JFrame implements ActionListe
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("1313131");
 		try {
 			if (e.getSource() instanceof JMenuItem) {
 				if (e.getActionCommand().equals("삭제")) {
@@ -127,6 +126,7 @@ public abstract class AbstractManagerUI<T> extends JFrame implements ActionListe
 //			pContent.clearTf();
 		} catch (NumberFormatException e2) {
 			JOptionPane.showMessageDialog(null, "형식을 확인해 주세요");
+			e2.printStackTrace();
 		}
 	}
 

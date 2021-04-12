@@ -215,7 +215,20 @@ select stdNo, stdName, banCode,
 from vw_student_table
 where banCode = ifnull(null,'A01'&'A02')
 order by ifnull(국어,평균) desc limit 10;
+select stdNo, stdName, banCode, 국어, 영어, 수학, 사회, 과학, 평균
+from vw_student_table where banCode = ifnull('A01' ,'A01' & 'A02')
+order by ifnull(4 , 평균) desc limit 5;
 
+select stdNo, stdName, banCode, 국어, 영어, 수학, 사회, 과학, 평균
+from vw_student_table where banCode = ifnull(null ,'A01' & 'A02')
+order by if(평균=평균,평균,국어) desc limit 5;
+
+select stdNo, stdName, banCode, 국어, 영어, 수학, 사회, 과학, 평균
+from vw_student_table
+where banCode = if('전체'='전체','A02 & A01','A01')
+order by if('평균'='평균',평균, 국어) desc limit 5;
+
+if(,)
 -- 학생이름별 학생리스트 출력
 select stdNo, stdName, banCode,
 	   subj4, 국어, subj5, 영어, subj6, 수학, subj7, 사회, subj8, 과학,

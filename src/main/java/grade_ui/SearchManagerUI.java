@@ -14,6 +14,7 @@ import grade_ui_list.SearchTablePanel;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import javax.swing.SwingConstants;
@@ -23,7 +24,7 @@ public class SearchManagerUI extends AbstractManagerUI<StudentDto> implements Ac
 	private ScoreStdPanel pItem;
 	private ScorePanel scorePanel;
 	private ScoreManagerUI frame;
-	
+	private SearchPanel searchPanel;
 	public SearchManagerUI() {
 		btnAdd.setText("검색");
 		
@@ -42,11 +43,12 @@ public class SearchManagerUI extends AbstractManagerUI<StudentDto> implements Ac
 	protected void tableLoadData() {
 		((SearchTablePanel) pList).setService(service);
 		pList.loadData();
+		
 	}
 
 	@Override
 	protected AbstractContentPanel<StudentDto> createContentPanel() {
-		SearchPanel searchPanel = new SearchPanel();
+		searchPanel = new SearchPanel();
 		searchPanel.setService(service);
 		return searchPanel;
 	}
@@ -58,9 +60,8 @@ public class SearchManagerUI extends AbstractManagerUI<StudentDto> implements Ac
 
 	@Override
 	protected void actionPerformedMenuGubun() {
-		System.out.println(222);
 		StudentDto std = pList.getItem();
-		System.out.println(std);
+//		System.out.println(std);
 		frame = new ScoreManagerUI();
 		frame.setStdNo(std);
 		frame.setVisible(true);
@@ -81,7 +82,8 @@ public class SearchManagerUI extends AbstractManagerUI<StudentDto> implements Ac
 
 	@Override
 	protected void actionPerformedBtnUpdate(ActionEvent e) {
-		StudentDto search = pContent.getItem();
+		StudentDto search = searchPanel.getItem();
+		
 		pList.initList2(search);
 		
 	}

@@ -23,6 +23,7 @@ public class SearchTablePanel extends AbstractCustomTablePanel<StudentDto> {
 	private JTextField tfMath;
 	private JTextField tfSoc;
 	private JTextField tfSic;
+	public int stds;
 
 	public SearchTablePanel() {
 		initialize();
@@ -82,6 +83,7 @@ public class SearchTablePanel extends AbstractCustomTablePanel<StudentDto> {
 	@Override
 	public void initList2(StudentDto student) {
 		list = service.showStudnetsByTotal(student);
+		System.out.println(list);
 		setList();
 		setavg();
 	}
@@ -100,30 +102,28 @@ public class SearchTablePanel extends AbstractCustomTablePanel<StudentDto> {
 		for (StudentDto t : list) {
 			int korscore = t.getJumsu().get(0).getJumsu();
 			k += korscore;
-			System.out.println(k);
-			System.out.println(list.size());
 			koravg = k / list.size();
-			System.out.println("koravg=" + koravg);
+//			System.out.println("koravg=" + koravg);
 
 			int engscore = t.getJumsu().get(1).getJumsu();
 			e += engscore;
 			engavg = e / list.size();
-			System.out.println("engavg=" + engavg);
+//			System.out.println("engavg=" + engavg);
 
 			int mathscore = t.getJumsu().get(2).getJumsu();
 			m += mathscore;
 			mathavg = m / list.size();
-			System.out.println("mathavg=" + mathavg);
+//			System.out.println("mathavg=" + mathavg);
 
 			int socscore = t.getJumsu().get(3).getJumsu();
 			s += socscore;
 			socavg = s / list.size();
-			System.out.println("socavg=" + socavg);
+//			System.out.println("socavg=" + socavg);
 
 			int sciscore = t.getJumsu().get(4).getJumsu();
 			si += sciscore;
 			sciavg = si / list.size();
-			System.out.println("sciavg=" + sciavg);
+//			System.out.println("sciavg=" + sciavg);
 
 		}
 		tfKor.setText(String.valueOf(koravg));
@@ -136,13 +136,13 @@ public class SearchTablePanel extends AbstractCustomTablePanel<StudentDto> {
 	@Override
 	public void initList3(StudentDto student) {
 		list = service.showStudentsByName(student);
-		System.out.println(list);
 		setList();
 	}
 
 	@Override
 	public void initList() {
 		list = service.showStudents();
+		stds = list.size();
 		setavg();
 	}
 

@@ -191,17 +191,18 @@ public class StudentDaoImpl implements StudentDao {
 //	+ " order by ifnull(? , 평균) desc limit ?";
 	@Override
 	public List<StudentDto> selectStudents(StudentDto student) {
-		String sql = "select stdNo, stdName, banCode," 
-					+ " 국어, 영어, 수학, 사회, 과학, 평균" 
-					+ " from vw_student_table"
-					+ " where banCode = ifnull(? ,'A01' and 'A02')"
-					+ " order by ifnull(? , 평균) desc limit ?";
+		String order = student.getOrder();
+		String ban = (student.getBan().getBanCode().equals("전체")?null:"'"+student.getBan().getBanCode()+"'");
+		String sql = "select stdNo, stdName, banCode, 국어, 영어, 수학, 사회, 과학, 평균" + 
+				" from vw_student_table where banCode = ifnull("+ban+",'A01' & 'A02')" + 
+				" order by if(평균="+order+" ,평균,"+order+") desc limit ?;";
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, student.getBan().getBanCode());
-			pstmt.setString(2, student.getOrder());
-			pstmt.setInt(3, student.getLimit());
+//			pstmt.setString(1, student.getBan().getBanCode());
 			
+//			pstmt.setString(2, student.getOrder());
+			pstmt.setInt(1, student.getLimit());
+			System.out.println(pstmt);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
 					List<StudentDto> list = new ArrayList<>();
