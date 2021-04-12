@@ -194,11 +194,13 @@ public class StudentDaoImpl implements StudentDao {
 		String sql = "select stdNo, stdName, banCode," 
 					+ " 국어, 영어, 수학, 사회, 과학, 평균" 
 					+ " from vw_student_table"
-					+ " order by ?  desc limit ?";
+					+ " where banCode = ifnull(? ,'A01' and 'A02')"
+					+ " order by ifnull(? , 평균) desc limit ?";
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, student.getOrder());
-			pstmt.setInt(2, student.getLimit());
+			pstmt.setString(1, student.getBan().getBanCode());
+			pstmt.setString(2, student.getOrder());
+			pstmt.setInt(3, student.getLimit());
 			
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {

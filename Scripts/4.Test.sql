@@ -213,8 +213,8 @@ from student s
 select stdNo, stdName, banCode,
 	   국어, 영어, 수학, 사회, 과학, 평균
 from vw_student_table
-where banCode = ifnull('A01','A01' and 'A02')
-order by ifnull(국어,평균) desc limit 20;
+where banCode = ifnull(null,'A01'&'A02')
+order by ifnull(국어,평균) desc limit 10;
 
 -- 학생이름별 학생리스트 출력
 select stdNo, stdName, banCode,

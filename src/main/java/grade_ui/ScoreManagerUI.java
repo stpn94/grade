@@ -25,7 +25,7 @@ import grade_ui_list.ScoreTablePanel;
 public class ScoreManagerUI extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JButton btnVerify;
+	public JButton btnVerify;
 
 	private StudentService service;
 	private ScoreService service1;
@@ -124,6 +124,7 @@ public class ScoreManagerUI extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		System.out.println(e);
 		if (e.getSource() == btnClear) {
 			actionPerformedBtnClear(e);
 		}
@@ -145,11 +146,20 @@ public class ScoreManagerUI extends JFrame implements ActionListener {
 	protected void actionPerformedBtnVerify(ActionEvent e) {
 //		StudentDto std = new StudentDto(Integer.parseInt(tfStdNo.getText()));
 		// 내가 입력 한 번호
+		extracted();
+
+	}
+
+	public void extracted() {
 		StudentDto std = new StudentDto(Integer.parseInt(pStudent.getTfStdNo().getText().trim()));
 		// 검색
 		StudentDto stdList = service.showStudentsByNo(std);
 		pStudent.setItem(stdList);
 		scorePanel.setItem(stdList);
+	}
+	
+	public void setStdNo(StudentDto stdNo) {
+		pStudent.setTfStdno(stdNo);
 
 	}
 
@@ -157,6 +167,7 @@ public class ScoreManagerUI extends JFrame implements ActionListener {
 		StudentDto student = scorePanel.getItem();
 		System.out.println(student);
 		if (student != null) {
+			System.out.println(student);
 			service1.modifyScore(student);
 		}
 		pList.loadData();

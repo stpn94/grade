@@ -77,6 +77,8 @@ public class ScorePanel extends JPanel {
 		JPanel panel = new JPanel();
 		add(panel);
 	}
+	
+	
 
 	public void setItem(StudentDto std) {
 		this.student = std;

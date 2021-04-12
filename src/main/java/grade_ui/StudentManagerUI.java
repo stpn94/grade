@@ -52,6 +52,7 @@ public class StudentManagerUI extends AbstractManagerUI<StudentDto> {
 		StudentDetailDto stdDetail = detailService.selectStudentDetailByStdNo(std);
 
 		StudentDetailUI frame;
+
 		if (stdDetail == null) {
 			frame = new StudentDetailUI(true, detailService);
 		} else {

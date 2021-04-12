@@ -59,6 +59,10 @@ public class ScoreStdPanel extends JPanel{
 		tfBan.setColumns(10);
 		
 	}
+	
+	public void setTfStdno(StudentDto stdNo) {
+		tfStdNo.setText(String.valueOf(stdNo.getStdNo()));
+	}
 
 	public void setItem(StudentDto std) {
 		tfStdNo.setText(String.valueOf(std.getStdNo()));

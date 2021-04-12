@@ -1,7 +1,5 @@
 package grade_ui_list;
 
-import java.util.ArrayList;
-
 import javax.swing.SwingConstants;
 
 import grade_dto.StudentDto;
@@ -56,6 +54,16 @@ public class StudentTablePanel extends AbstractCustomTablePanel<StudentDto> {
 	
 	public void setService(StudentService service) {
 		this.service = service;
+	}
+	@Override
+	public void initList2(StudentDto student) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void initList3(StudentDto student) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

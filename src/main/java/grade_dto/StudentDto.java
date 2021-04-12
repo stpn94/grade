@@ -83,6 +83,12 @@ public class StudentDto {
 		this.limit = limit;
 	}
 
+
+
+	public StudentDto() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getStdNo() {
 		return stdNo;
 	}
@@ -141,8 +147,8 @@ public class StudentDto {
 
 	@Override
 	public String toString() {
-		return String.format("StudentDto [stdNo=%s, stdName=%s, ban=%s, jumsu=%s, avg=%s]", stdNo, stdName, ban, jumsu,
-				avg);
+		return String.format("StudentDto [stdNo=%s, stdName=%s, ban=%s, jumsu=%s, order=%s, limit=%s, avg=%s]", stdNo,
+				stdName, ban, jumsu, order, limit, avg);
 	}
 
 }

@@ -40,6 +40,7 @@ public class BanPanel extends JPanel implements ActionListener {
 		for(BanDto i : list){
 			model.addElement(i);
 		}
+		
 	}
 
 	private void initialize() {

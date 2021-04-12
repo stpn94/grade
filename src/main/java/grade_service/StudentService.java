@@ -23,12 +23,15 @@ public class StudentService {
 	public StudentDto showStudentsByNo(StudentDto student){
 		return stdDao.selectStudentByNo(student);
 	}
+	public List<StudentDto> showStudentsByName(StudentDto student){
+		return stdDao.selectStudentByName(student);
+	}
 	
 	public List<StudentDto> showStudentsByJumsuZero(){
 		return stdDao.selectStudentByJumsuZero();
 	}
 	
-	public List<StudentDto> showStudnets(StudentDto student){
+	public List<StudentDto> showStudnetsByTotal(StudentDto student){
 		return stdDao.selectStudents(student);
 	}
 	

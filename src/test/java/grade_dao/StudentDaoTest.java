@@ -73,7 +73,7 @@ public class StudentDaoTest {
 	@Test
 	public void test07SelectStudents() {
 		System.out.printf("%s()%n", "test07SelectStudents");
-		StudentDto search = new StudentDto("국어",20);
+		StudentDto search = new StudentDto(new BanDto("A01"),"국어",20);
 		System.out.println(search);
 		List<StudentDto> stdList = dao.selectStudents(search);
 		Assert.assertNotNull(stdList);

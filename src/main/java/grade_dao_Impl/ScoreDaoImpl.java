@@ -27,8 +27,8 @@ public class ScoreDaoImpl implements ScoreDao {
 				pstmt.setInt(1, student.getJumsu().get(i).getJumsu());
 				pstmt.setInt(2, student.getStdNo());
 				pstmt.setInt(3, student.getJumsu().get(i).getSubject().getSubjNo());
+				pstmt.executeUpdate();
 			}
-			return pstmt.executeUpdate();
 		} catch (Exception e) {
 		}
 		return 0;

@@ -30,6 +30,10 @@ public abstract class AbstractManagerUI<T> extends JFrame implements ActionListe
 
 	protected static final String BAN_MENU = "동일 반 학생 보기";
 	protected static final String STD_MENU = "학생 세부정보 보기";
+	protected static final String VIEW_MENU = "성적 수정하로가기";
+	protected JMenuItem updateItem;
+	protected JMenuItem deleteItem;
+	protected JPopupMenu popMenu;
 
 	public AbstractManagerUI() {
 		setService();// service 연결
@@ -69,24 +73,26 @@ public abstract class AbstractManagerUI<T> extends JFrame implements ActionListe
 	}
 
 	private JPopupMenu createPopupMenu() {
-		JPopupMenu popMenu = new JPopupMenu();
+		popMenu = new JPopupMenu();
 
-		JMenuItem updateItem = new JMenuItem("수정");
+		updateItem = new JMenuItem("수정");
 		updateItem.addActionListener(this);
 		popMenu.add(updateItem);
 
-		JMenuItem deleteItem = new JMenuItem("삭제");
+		deleteItem = new JMenuItem("삭제");
 		deleteItem.addActionListener(this);
 		popMenu.add(deleteItem);
 
 		stdListByBanItem = new JMenuItem("동일 반 학생 보기");
 		stdListByBanItem.addActionListener(this);
+		
 		popMenu.add(stdListByBanItem);
 
 		return popMenu;
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		System.out.println("1313131");
 		try {
 			if (e.getSource() instanceof JMenuItem) {
 				if (e.getActionCommand().equals("삭제")) {
@@ -98,7 +104,8 @@ public abstract class AbstractManagerUI<T> extends JFrame implements ActionListe
 				}
 
 				if (e.getActionCommand().contentEquals(AbstractManagerUI.BAN_MENU)
-						|| e.getActionCommand().contentEquals(AbstractManagerUI.STD_MENU)) {
+						|| e.getActionCommand().contentEquals(AbstractManagerUI.STD_MENU)
+						|| e.getActionCommand().contentEquals(AbstractManagerUI.VIEW_MENU)) {
 					actionPerformedMenuGubun();
 				}
 
@@ -118,8 +125,8 @@ public abstract class AbstractManagerUI<T> extends JFrame implements ActionListe
 		} catch (InvalidCheckException | SqlConstraintException e1) {
 			JOptionPane.showMessageDialog(null, e1.getMessage());
 //			pContent.clearTf();
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		} catch (NumberFormatException e2) {
+			JOptionPane.showMessageDialog(null, "형식을 확인해 주세요");
 		}
 	}
 

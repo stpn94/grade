@@ -28,8 +28,8 @@ public class StudentDetailUI extends JFrame implements ActionListener {
 		this.service = service;
 		initialize(isBtns);
 	}
-
 	private void initialize(boolean isBtns) {
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 459, 470);
 		contentPane = new JPanel();

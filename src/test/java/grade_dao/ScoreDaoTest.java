@@ -19,7 +19,7 @@ public class ScoreDaoTest {
 		System.out.printf("%s()%n","testUpdateScore"); //제목찍어주기
 		
 		List<ScoreDto> list = new ArrayList<ScoreDto>();
-		StudentDto student =new StudentDto(2030, list);
+		StudentDto student =new StudentDto(2004, list);
 		
 		list.add(new ScoreDto(new SubjectDto(4),100));
 		list.add(new ScoreDto(new SubjectDto(5),90));

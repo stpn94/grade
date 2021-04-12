@@ -13,11 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import grade_ui.ScoreManagerUI;
+import grade_ui.SearchManagerUI;
+import grade_ui.SearchOneManagerUI;
 import grade_ui.StudentManagerUI;
 import grade_ui.Sub_BanManagerUI;
-import grade_ui_list.ScoreTablePanel;
-import javax.swing.JTabbedPane;
-import grade_ui_content.ScorePanel;
 
 public class Main extends JFrame implements ActionListener {
 
@@ -27,9 +26,12 @@ public class Main extends JFrame implements ActionListener {
 	private JButton btnStudent;
 	private JButton btnScore;
 	private ScoreManagerUI scoreframe;
-	private JButton btnSubject;
-	private Sub_BanManagerUI subjbanframe;
 	private JButton btnBan;
+	private Sub_BanManagerUI subjbanframe;
+	private SearchManagerUI searchframe;
+	private SearchOneManagerUI searchOneframe;
+	private JButton btnSubject;
+	private JButton btnVerifyByOne;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -79,17 +81,18 @@ public class Main extends JFrame implements ActionListener {
 		btnScore.addActionListener(this);
 		pBtns.add(btnScore);
 
-		btnSubject = new JButton("학반 추가");
-		btnSubject.addActionListener(this);
-		btnSubject.setIcon(new ImageIcon("C:\\workspace_java\\grade\\image\\학반추가.png"));
-		pBtns.add(btnSubject);
-
-		btnBan = new JButton("과목추가");
+		btnBan = new JButton("과목 관리");
 		btnBan.addActionListener(this);
-		btnBan.setIcon(new ImageIcon("C:\\workspace_java\\grade\\image\\과목추가.png"));
+		btnBan.setIcon(new ImageIcon("C:\\workspace_java\\grade\\image\\학반추가.png"));
 		pBtns.add(btnBan);
 
-		JButton btnVerifyByOne = new JButton("학생조회");
+		btnSubject = new JButton("학반관리");
+		btnSubject.addActionListener(this);
+		btnSubject.setIcon(new ImageIcon("C:\\workspace_java\\grade\\image\\과목추가.png"));
+		pBtns.add(btnSubject);
+
+		btnVerifyByOne = new JButton("학생조회");
+		btnVerifyByOne.addActionListener(this);
 		btnVerifyByOne.setIcon(new ImageIcon("C:\\workspace_java\\grade\\image\\전체성적 조회.png"));
 		pBtns.add(btnVerifyByOne);
 
@@ -100,10 +103,13 @@ public class Main extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnBan) {
-			actionPerformedBtnBan(e);
+		if (e.getSource() == btnVerifyByOne) {
+			actionPerformedBtnVerifyByOne(e);
 		}
 		if (e.getSource() == btnSubject) {
+			actionPerformedBtnBan(e);
+		}
+		if (e.getSource() == btnBan) {
 			actionPerformedBtnSubject(e);
 		}
 		if (e.getSource() == btnScore) {
@@ -118,6 +124,11 @@ public class Main extends JFrame implements ActionListener {
 	}
 
 	protected void actionPerformedBtnVerifyByAll(ActionEvent e) {
+		searchframe = new SearchManagerUI();
+		searchframe.setTitle("전체 조회");
+		searchframe.setBounds(312, 100, 748, 524);
+		
+		searchframe.setVisible(true);
 	}
 
 	protected void actionPerformedBtnStudent(ActionEvent e) {
@@ -148,5 +159,12 @@ public class Main extends JFrame implements ActionListener {
 		subjbanframe.setBounds(320, 350, 748, 280);
 		subjbanframe.tabbedPane.setSelectedComponent(subjbanframe.pBan);
 		subjbanframe.setVisible(true);
+	}
+	protected void actionPerformedBtnVerifyByOne(ActionEvent e) {
+		searchOneframe = new SearchOneManagerUI();
+		searchOneframe.setTitle("학생 조회");
+		searchOneframe.setBounds(312, 100, 748, 524);
+		
+		searchOneframe.setVisible(true);
 	}
 }

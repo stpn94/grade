@@ -16,8 +16,10 @@ import grade_dto.BanDto;
 import grade_dto.StudentDto;
 import grade_dto.SubjectDto;
 import grade_service.StudentService;
+import grade_ui.exception.InvalidCheckException;
+import javax.swing.JSpinner;
 
-public class SearchPanel extends JPanel {
+public class SearchPanel extends AbstractContentPanel<StudentDto> {
 	private JComboBox<SubjectDto> cmbOrders;
 	private JTextField tfLimit;
 	private JComboBox<BanDto> cmbBan;
@@ -27,13 +29,17 @@ public class SearchPanel extends JPanel {
 	public void setService(StudentService service) {
 		this.service = service;
 
+		BanDto ban = new BanDto("");
 		List<BanDto> banList = service.showBanList();
+		banList.add(ban);
 		System.out.println(banList);
 		DefaultComboBoxModel<BanDto> banModel = new DefaultComboBoxModel<>(new Vector<>(banList));
 		cmbBan.setModel(banModel);
 		cmbBan.setSelectedIndex(-1);
-		
+
+		SubjectDto subj = new SubjectDto("");
 		List<SubjectDto> subjList = service.showSubjectList();
+		subjList.add(subj);
 		System.out.println(subjList);
 		DefaultComboBoxModel<SubjectDto> subjModel = new DefaultComboBoxModel<>(new Vector<>(subjList));
 		cmbOrders.setModel(subjModel);
@@ -42,7 +48,6 @@ public class SearchPanel extends JPanel {
 
 	public SearchPanel() {
 		initialize();
-
 
 	}
 
@@ -84,15 +89,17 @@ public class SearchPanel extends JPanel {
 	}
 
 	public StudentDto getItem() {
+		validCheck();
 		BanDto ban = (BanDto) cmbBan.getSelectedItem();
 		int limit = Integer.parseInt(tfLimit.getText());
-		String order = (String)cmbOrders.getSelectedItem();
-		return new StudentDto(ban,order,limit);
+		SubjectDto a = (SubjectDto) cmbOrders.getSelectedItem();
+		return new StudentDto(ban, a.getSubjName(), limit);
 	}
 
 	public void validCheck() {
-		// TODO Auto-generated method stub
-
+		if (tfLimit.getText().equals("")) {
+			throw new InvalidCheckException();
+		}
 	}
 
 	public void clearTf() {
