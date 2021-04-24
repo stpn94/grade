@@ -1,4 +1,11 @@
 select user(),database();
+
+select * from ban;
+select * from subject s ;
+select * from student s ;
+select * from score s ;
+
+
 -- view 생성
 create view vw_student_table as
 select s.stdNo as stdNo, stdName,banNo, banCode,
@@ -14,6 +21,7 @@ select s.stdNo as stdNo, stdName,banNo, banCode,
 		  JOIN subject sub ON sco.subject = sub.subjNo
 	group by s.stdNo;
 
+select * from vw_student_table;
 drop view vw_student_table;
 
 
@@ -62,7 +70,7 @@ select * from subject ;
 
 select *
 from score
-where stdno=2009;
+where stdno=2031;
 
 -- 전체 학생 정보와 과목별 점수를 Sql문
 -- 학번 이름 분반 국어 영어 수학 사회 과학 테이블
@@ -98,6 +106,7 @@ update student set stdName = '아니니' , ban= 2 where stdNo=2099;
 delete from student where stdNo=2031;
 
 select * from std_detail;
+
 
 insert into std_detail
 values
@@ -245,6 +254,7 @@ select jumsu as '사회' from point where subject = 4;
 select jumsu as '과학' from point where subject = 5;
 
 select * from score ;
+select all from score ;
 
 
 

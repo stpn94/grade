@@ -15,30 +15,7 @@ public class StudentDto {
 	private int limit;
 	private double avg;
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + stdNo;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		StudentDto other = (StudentDto) obj;
-		if (stdNo != other.stdNo)
-			return false;
-		return true;
-	}
-
 	
-
 	public StudentDto(int stdNo) {
 		this.stdNo = stdNo;
 	}
@@ -150,5 +127,30 @@ public class StudentDto {
 		return String.format("StudentDto [stdNo=%s, stdName=%s, ban=%s, jumsu=%s, order=%s, limit=%s, avg=%s]", stdNo,
 				stdName, ban, jumsu, order, limit, avg);
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + stdNo;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StudentDto other = (StudentDto) obj;
+		if (stdNo != other.stdNo)
+			return false;
+		return true;
+	}
+
+	
+
 
 }

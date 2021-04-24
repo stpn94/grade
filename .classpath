@@ -28,7 +28,10 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
-	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
-	<classpathentry kind="lib" path="jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lenovo/.gradle/caches/modules-2/files-2.1/com.toedter/jcalendar/1.4/180cf82b37b0c1324e7de33bd0114be7d86678cd/jcalendar-1.4.jar" sourcepath="C:/Users/lenovo/.gradle/caches/modules-2/files-2.1/com.toedter/jcalendar/1.4/3d7b88aa467e7f5845273e130e6e2dc72c86a5a9/jcalendar-1.4-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>

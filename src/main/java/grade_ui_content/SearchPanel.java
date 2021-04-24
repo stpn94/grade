@@ -26,6 +26,7 @@ public class SearchPanel extends AbstractContentPanel<StudentDto> {
 
 	private StudentService service = new StudentService();
 	private JSpinner tfLimit;
+	private int stds;
 
 	public void setService(StudentService service) {
 		this.service = service;
@@ -73,7 +74,7 @@ public class SearchPanel extends AbstractContentPanel<StudentDto> {
 		pItem.add(lblLimit);
 		
 		List<StudentDto> list = service.showStudents();
-		int stds = list.size();
+		stds = list.size();
 			
 		tfLimit = new JSpinner();
 		tfLimit.setModel(new SpinnerNumberModel(stds, 1, stds, 1));
@@ -113,9 +114,11 @@ public class SearchPanel extends AbstractContentPanel<StudentDto> {
 	}
 	@Override
 	public void clearTf() {
-		cmbBan.setSelectedIndex(-1);
-		tfLimit.setToolTipText("1");
-		cmbOrders.setSelectedIndex(-1);
+		
+		cmbBan.setSelectedIndex(2);
+		tfLimit.setModel(new SpinnerNumberModel(stds, 1, stds, 1));
+		
+		cmbOrders.setSelectedIndex(5);
 
 	}
 

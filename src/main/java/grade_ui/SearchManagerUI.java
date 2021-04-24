@@ -93,4 +93,12 @@ public class SearchManagerUI extends AbstractManagerUI<StudentDto> implements Ac
 		
 	}
 
+	@Override
+	protected void actionPerformedBtnClear(ActionEvent e) {
+		pContent.clearTf();
+
+		tableLoadData();
+		
+	}
+
 }

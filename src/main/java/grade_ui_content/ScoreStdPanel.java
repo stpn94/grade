@@ -16,6 +16,12 @@ public class ScoreStdPanel extends JPanel{
 	private JTextField tfStdName;
 	private JTextField tfBan;
 	private JPanel pStudent;
+	private JPanel panel_1;
+	private JPanel panel_2;
+	private JPanel panel_3;
+	private JPanel panel_4;
+	private JPanel panel_5;
+	private JPanel panel;
 	
 	public JTextField getTfStdNo() {
 		return tfStdNo;
@@ -31,6 +37,24 @@ public class ScoreStdPanel extends JPanel{
 		pStudent = new JPanel();
 		add(pStudent);
 		pStudent.setLayout(new GridLayout(0, 6, 0, 0));
+		
+		panel_1 = new JPanel();
+		pStudent.add(panel_1);
+		
+		panel_2 = new JPanel();
+		pStudent.add(panel_2);
+		
+		panel_3 = new JPanel();
+		pStudent.add(panel_3);
+		
+		panel_4 = new JPanel();
+		pStudent.add(panel_4);
+		
+		panel_5 = new JPanel();
+		pStudent.add(panel_5);
+		
+		panel = new JPanel();
+		pStudent.add(panel);
 		
 		JLabel lblStdNo = new JLabel("학 번");
 		lblStdNo.setHorizontalAlignment(SwingConstants.TRAILING);

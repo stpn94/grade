@@ -98,4 +98,10 @@ public class StudentManagerUI extends AbstractManagerUI<StudentDto> {
 		JOptionPane.showMessageDialog(null, stdAdd.getStdName() + " 추가했습니다.");
 	}
 
+	@Override
+	protected void actionPerformedBtnClear(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

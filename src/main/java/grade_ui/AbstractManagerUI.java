@@ -148,11 +148,5 @@ public abstract class AbstractManagerUI<T> extends JFrame implements ActionListe
 
 	protected abstract void actionPerformedBtnAdd(ActionEvent e);
 
-	protected void actionPerformedBtnClear(ActionEvent e) {
-		pContent.clearTf();
-
-		if (btnAdd.getText().contentEquals("수정")) {
-			btnAdd.setText("추가");
-		}
-	}
+	protected abstract void actionPerformedBtnClear(ActionEvent e); 
 }

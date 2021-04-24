@@ -91,4 +91,12 @@ public class SearchOneManagerUI extends AbstractManagerUI<StudentDto> implements
 //		System.out.println(search);
 //		pList.initList3(search);
 	}
+
+	@Override
+	protected void actionPerformedBtnClear(ActionEvent e) {
+		pContent.clearTf();
+
+		tableLoadData();
+		
+	}
 }

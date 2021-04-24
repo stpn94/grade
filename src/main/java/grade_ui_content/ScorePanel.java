@@ -26,7 +26,7 @@ public class ScorePanel extends JPanel {
 	
 	private void initialize() {
 		setBackground(Color.GREEN);
-		setLayout(new GridLayout(0, 2, 0, 0));
+		setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel pScore = new JPanel();
 		add(pScore);
@@ -72,10 +72,6 @@ public class ScorePanel extends JPanel {
 		tfSci = new JTextField();
 		pScore.add(tfSci);
 		tfSci.setColumns(10);
-		
-		
-		JPanel panel = new JPanel();
-		add(panel);
 	}
 	
 	
