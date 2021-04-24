@@ -20,10 +20,12 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import grade_dto.BanDto;
+import grade_dto.ScoreDto;
 import grade_dto.StudentDto;
+import grade_dto.SubjectDto;
 
 public class ExcelManager {
-	public static void main(String[] args) throws EncryptedDocumentException, IOException, InvalidFormatException {
+/*	public static void main(String[] args) throws EncryptedDocumentException, IOException, InvalidFormatException {
 		List<StudentDto> studentList = getStudentList();
 
 //        // id 기준 오름차순 정렬
@@ -36,13 +38,21 @@ public class ExcelManager {
 //        });
 
 		for (StudentDto studentDTO : studentList) {
-			System.out.println(studentDTO.getStdNo() + ", " + studentDTO.getStdName() + ", "
-					+ studentDTO.getBan().getBanNo());
+			System.out.println(
+					studentDTO.getStdNo() + ", " + studentDTO.getStdName() + ", " + studentDTO.getBan().getBanNo());
 		}
-
+		for (StudentDto studentDTO : studentList) {
+			System.out.println(
+					
+					studentDTO.getJumsu().get(0).getJumsu()+ ", "+
+					studentDTO.getJumsu().get(1).getJumsu()+ ", "+
+					studentDTO.getJumsu().get(2).getJumsu()+ ", "+
+					studentDTO.getJumsu().get(3).getJumsu()+ ", "+
+					studentDTO.getJumsu().get(4).getJumsu());
+		}
 //        writeExcelFile(studentList);
 	}
-
+*/
 	public void writeExcelFile(List<StudentDto> list) throws EncryptedDocumentException, IOException {
 		String filePath = "student_transfer.xlsx"; // 저장할 파일 경로
 		System.out.println(filePath);
@@ -80,6 +90,7 @@ public class ExcelManager {
 		Iterator<Row> rowItr = sheet.iterator();
 		// 행만큼 반복
 		while (rowItr.hasNext()) {
+			List<ScoreDto> list = new ArrayList<ScoreDto>();
 			StudentDto student = new StudentDto();
 			Row row = rowItr.next();
 			// 첫 번째 행이 헤더인 경우 스킵, 2번째 행부터 data 로드
@@ -99,11 +110,26 @@ public class ExcelManager {
 				case 1: // 성명
 					student.setStdName((String) getValueFromCell(cell));
 					break;
-                case 2: // 생년월일
-                    student.setBan(new BanDto(((Double) getValueFromCell(cell)).intValue()));
-                    break;
-                }
-				
+				case 2: // 반
+					student.setBan(new BanDto(((Double) getValueFromCell(cell)).intValue()));
+					break;
+				case 3: // 반
+					list.add(new ScoreDto(new SubjectDto(4),((Double) getValueFromCell(cell)).intValue()));
+					break;
+				case 4: // 반
+					list.add(new ScoreDto(new SubjectDto(5),((Double) getValueFromCell(cell)).intValue()));
+					break;
+				case 5: // 반
+					list.add(new ScoreDto(new SubjectDto(6),((Double) getValueFromCell(cell)).intValue()));
+					break;
+				case 6: // 반
+					list.add(new ScoreDto(new SubjectDto(7),((Double) getValueFromCell(cell)).intValue()));
+					break;
+				case 7: // 반
+					list.add(new ScoreDto(new SubjectDto(8),((Double) getValueFromCell(cell)).intValue()));
+					break;
+				}
+				student.setJumsu(list);
 			}
 			studentList.add(student);
 		}

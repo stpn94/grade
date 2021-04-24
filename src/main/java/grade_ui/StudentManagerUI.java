@@ -92,6 +92,7 @@ public class StudentManagerUI extends AbstractManagerUI<StudentDto> {
 	@Override
 	protected void actionPerformedBtnAdd(ActionEvent e) {
 		StudentDto stdAdd = pContent.getItem();
+		System.out.println(stdAdd);
 		service.addStudent(stdAdd);
 		pList.loadData();
 		pContent.clearTf();

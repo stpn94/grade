@@ -16,6 +16,13 @@ public class StudentDto {
 	private double avg;
 
 	
+	public StudentDto(int stdNo, String stdName, BanDto ban, List<ScoreDto> jumsu) {
+		this.stdNo = stdNo;
+		this.stdName = stdName;
+		this.ban = ban;
+		this.jumsu = jumsu;
+	}
+
 	public StudentDto(int stdNo) {
 		this.stdNo = stdNo;
 	}

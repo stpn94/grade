@@ -10,11 +10,14 @@ import java.awt.GridLayout;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -27,10 +30,25 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import grade_dto.BanDto;
+import grade_dto.ScoreDto;
 import grade_dto.StudentDto;
+import grade_dto.SubjectDto;
 import grade_service.ScoreService;
 import grade_service.StudentService;
 import grade_ui.exception.InvalidCheckException;
+import grade_ui.exception.SqlConstraintException;
 import grade_ui_content.ScorePanel;
 import grade_ui_content.ScoreStdPanel;
 import grade_ui_list.ScoreTablePanel;
@@ -53,6 +71,7 @@ public class ScoreManagerUI extends JFrame implements ActionListener {
 	private JTextArea textArea;
 	private JLabel lblNewLabel;
 	private JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
+	private static String chooseFilePath;
 
 	private void setService() {
 		service = new StudentService();
@@ -162,7 +181,12 @@ public class ScoreManagerUI extends JFrame implements ActionListener {
 			if (e.getActionCommand().equals("불러오기")) {
 				actionPerformedBtnLoadExcel(e);
 			} else {
-				actionPerformedBtnSave(e);
+				try {
+					actionPerformedBtnSave(e);
+				} catch (EncryptedDocumentException | InvalidFormatException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 		if (e.getSource() == btnClear) {
@@ -182,8 +206,6 @@ public class ScoreManagerUI extends JFrame implements ActionListener {
 		}
 
 	}
-
-	
 
 	protected void actionPerformedBtnVerify(ActionEvent e) {
 //		StudentDto std = new StudentDto(Integer.parseInt(tfStdNo.getText()));
@@ -231,18 +253,157 @@ public class ScoreManagerUI extends JFrame implements ActionListener {
 			return;
 		}
 
-		String chooseFilePath = chooser.getSelectedFile().getPath();
+		chooseFilePath = chooser.getSelectedFile().getPath();
 		System.out.println(chooseFilePath + "<<chooseFilePath");
 		if (btnLoadExcel.getText().equals("불러오기")) {
 			btnLoadExcel.setText("저장하기");
 		}
 	}
-	private void actionPerformedBtnSave(ActionEvent e) {
 
-
+	private void actionPerformedBtnSave(ActionEvent e) throws EncryptedDocumentException, InvalidFormatException, IOException {
+		List<StudentDto> studentList = getStudentList();
+		
+		for (StudentDto studentDTO : studentList) {
+//			System.out.println(studentDTO.getStdNo() + ", " + studentDTO.getStdName() + ", " + studentDTO.getBan().getBanNo());
+//			System.out.println(studentDTO);
+			int stdNo = studentDTO.getStdNo();
+			String stdName = studentDTO.getStdName();
+			BanDto ban = new BanDto(studentDTO.getBan().getBanNo());
+			StudentDto newStd=new StudentDto(stdNo, stdName, ban);
+			try {
+				service.addStudent(newStd);
+				System.out.println("입력함");
+			} catch (SqlConstraintException e2) {
+				service.modifyStudent(newStd);
+				System.out.println("업데이트함");
+			}
+			
+		}
+		
+		for (StudentDto studentDTO : studentList) {
+//			System.out.println(
+//					studentDTO.getJumsu().get(0).getJumsu()+ ", "+
+//					studentDTO.getJumsu().get(1).getJumsu()+ ", "+
+//					studentDTO.getJumsu().get(2).getJumsu()+ ", "+
+//					studentDTO.getJumsu().get(3).getJumsu()+ ", "+
+//					studentDTO.getJumsu().get(4).getJumsu());
+			List<ScoreDto> list = new ArrayList<ScoreDto>();
+			StudentDto student =new StudentDto(studentDTO.getStdNo(), list);
+			list.add(new ScoreDto(new SubjectDto(4),studentDTO.getJumsu().get(0).getJumsu()));
+			list.add(new ScoreDto(new SubjectDto(5),studentDTO.getJumsu().get(1).getJumsu()));
+			list.add(new ScoreDto(new SubjectDto(6),studentDTO.getJumsu().get(2).getJumsu()));
+			list.add(new ScoreDto(new SubjectDto(7),studentDTO.getJumsu().get(3).getJumsu()));
+			list.add(new ScoreDto(new SubjectDto(8),studentDTO.getJumsu().get(4).getJumsu()));
+			
+			service1.modifyScore(student);
+		}
+		pList.loadData();
 		if (btnLoadExcel.getText().equals("저장하기")) {
 			btnLoadExcel.setText("불러오기");
 		}
 
+	}
+
+	public void writeExcelFile(List<StudentDto> list) throws EncryptedDocumentException, IOException {
+		String filePath = "student_transfer.xlsx"; // 저장할 파일 경로
+		System.out.println(filePath);
+		FileOutputStream fos = new FileOutputStream(filePath);
+
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		XSSFSheet sheet = workbook.createSheet("studentList"); // sheet 생성
+
+		XSSFRow curRow;
+
+		int row = list.size(); // list 크기
+		for (int i = 0; i < row; i++) {
+			curRow = sheet.createRow(i); // row 생성
+			curRow.createCell(0).setCellValue(list.get(i).getStdNo()); // row에 각 cell 저장
+			curRow.createCell(1).setCellValue(list.get(i).getStdName());
+			curRow.createCell(2).setCellValue(list.get(i).getBan().getBanNo());
+		}
+
+		workbook.write(fos);
+		fos.close();
+	}
+
+	public static List<StudentDto> getStudentList()
+			throws EncryptedDocumentException, IOException, InvalidFormatException {
+		List<StudentDto> studentList = new ArrayList<StudentDto>();
+
+		String filePath = chooseFilePath;
+		// String filePath = "C:\\student.xls";
+		InputStream inputStream = new FileInputStream(filePath);
+
+		// 엑셀 로드
+		Workbook workbook = WorkbookFactory.create(inputStream);
+		// 시트 로드 0, 첫번째 시트 로드
+		Sheet sheet = workbook.getSheetAt(0);
+		Iterator<Row> rowItr = sheet.iterator();
+		// 행만큼 반복
+		while (rowItr.hasNext()) {
+			List<ScoreDto> list = new ArrayList<ScoreDto>();
+			StudentDto student = new StudentDto();
+			Row row = rowItr.next();
+			// 첫 번째 행이 헤더인 경우 스킵, 2번째 행부터 data 로드
+			if (row.getRowNum() == 0) {
+				continue;
+			}
+			Iterator<Cell> cellItr = row.cellIterator();
+			// 한 행이 한열 씩 읽기 (셀 읽기)
+			while (cellItr.hasNext()) {
+				Cell cell = cellItr.next();
+				int index = cell.getColumnIndex();
+				switch (index) {
+				case 0: // 번호
+					// 셀이 숫자형인 경우 Double형으로 변환 후 int형으로 변환
+					student.setStdNo(((Double) getValueFromCell(cell)).intValue());
+					break;
+				case 1: // 성명
+					student.setStdName((String) getValueFromCell(cell));
+					break;
+				case 2: // 반
+					student.setBan(new BanDto(((Double) getValueFromCell(cell)).intValue()));
+					break;
+				case 3: // 반
+					list.add(new ScoreDto(new SubjectDto(4), ((Double) getValueFromCell(cell)).intValue()));
+					break;
+				case 4: // 반
+					list.add(new ScoreDto(new SubjectDto(5), ((Double) getValueFromCell(cell)).intValue()));
+					break;
+				case 5: // 반
+					list.add(new ScoreDto(new SubjectDto(6), ((Double) getValueFromCell(cell)).intValue()));
+					break;
+				case 6: // 반
+					list.add(new ScoreDto(new SubjectDto(7), ((Double) getValueFromCell(cell)).intValue()));
+					break;
+				case 7: // 반
+					list.add(new ScoreDto(new SubjectDto(8), ((Double) getValueFromCell(cell)).intValue()));
+					break;
+				}
+				student.setJumsu(list);
+			}
+			studentList.add(student);
+		}
+		return studentList;
+	}
+
+	private static Object getValueFromCell(Cell cell) {
+		switch (cell.getCellType()) {
+		case Cell.CELL_TYPE_STRING:
+			return cell.getStringCellValue();
+		case Cell.CELL_TYPE_BOOLEAN:
+			return cell.getBooleanCellValue();
+		case Cell.CELL_TYPE_NUMERIC:
+//			if (DateUtil.isCellDateFormatted(cell)) {
+//				return cell.getDateCellValue();
+//			}
+			return cell.getNumericCellValue();
+		case Cell.CELL_TYPE_FORMULA:
+			return cell.getCellFormula();
+		case Cell.CELL_TYPE_BLANK:
+			return "";
+		default:
+			return "";
+		}
 	}
 }
