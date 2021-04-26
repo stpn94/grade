@@ -1,28 +1,12 @@
 package grade_ui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import grade_dto.StudentDto;
-import grade_service.StudentService;
-import grade_ui_content.AbstractContentPanel;
-import grade_ui_content.ScorePanel;
-import grade_ui_content.ScoreStdPanel;
-import grade_ui_content.SearchPanel;
-import grade_ui_list.AbstractCustomTablePanel;
-import grade_ui_list.SearchTablePanel;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
 
-import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import javax.swing.SwingConstants;
+import javax.swing.JFrame;
 
-import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
@@ -38,127 +22,52 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.TextAnchor;
 
-public class SearchManagerUI extends AbstractManagerUI<StudentDto> implements ActionListener {
-	private StudentService service;
-	private ScoreStdPanel pItem;
-	private ScorePanel scorePanel;
-	private ScoreManagerUI frame;
-	private SearchPanel searchPanel;
+import grade_ui_list.SearchTablePanel;
 
-	public int kor;
-	private boolean check;
+public class SubjAvgChart extends JFrame {
 
-	public SearchManagerUI() {
-		btnAdd.setText("검색");
+	private SearchTablePanel list =new SearchTablePanel();
+	
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SubjAvgChart demo = new SubjAvgChart();
 
-		stdListByBanItem.setText(AbstractManagerUI.VIEW_MENU);
+					JFreeChart chart = demo.getChart();
 
-		updateItem.setVisible(false);
-		deleteItem.setVisible(false);
-		
+					ChartFrame frame1 = new ChartFrame("Bar Chart", chart);
+					
+
+					frame1.setSize(800, 400);
+
+					frame1.setVisible(true);
+
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
-	@Override
-	protected void setService() {
-		service = new StudentService();
-	}
-
-	@Override
-	protected void tableLoadData() {
-		((SearchTablePanel) pList).setService(service);
-		
-		pList.loadData();
-		
-	}
-
-	@Override
-	protected AbstractContentPanel<StudentDto> createContentPanel() {
-		searchPanel = new SearchPanel();
-		searchPanel.setService(service);
-		return searchPanel;
-	}
-
-	@Override
-	protected AbstractCustomTablePanel<StudentDto> createTablePanel() {
-		return new SearchTablePanel();
-	}
-
-	@Override
-	protected void actionPerformedMenuGubun() {
-		StudentDto std = pList.getItem();
-//		System.out.println(std);
-		frame = new ScoreManagerUI();
-		frame.setStdNo(std);
-		frame.setVisible(true);
-		frame.extracted();
-
-	}
-
-	@Override
-	protected void actionPerformedMenuUpdate() {
-
-	}
-
-	@Override
-	protected void actionPerformedMenuDelete() {
-
-	}
-
-	@Override
-	protected void actionPerformedBtnUpdate(ActionEvent e) {
-		StudentDto search = searchPanel.getItem();
-		pList.initList2(search);
-		JFreeChart chart = getChart();
-		ChartPanel subjChart = new ChartPanel(chart);
-		if(check==true) {
-			((SearchTablePanel) pList).pSubjChart.removeAll();
-		System.out.println("지움");
-		}
-		((SearchTablePanel) pList).pSubjChart.add(subjChart);
-		check = true;
-		subjChart.setSize(800, 400);
-		subjChart.setVisible(check);
-		
-	}
-
-	@Override
-	protected void actionPerformedBtnAdd(ActionEvent e) {
-
-	}
-
-	@Override
-	protected void actionPerformedBtnClear(ActionEvent e) {
-		pContent.clearTf();
-
-		tableLoadData();
-
-	}
-
+	
 	public JFreeChart getChart() {
 		// 데이터 생성
-//		tfKor.setText(String.valueOf(koravg));
-//		tfEng.setText(String.valueOf(engavg));
-//		tfMath.setText(String.valueOf(mathavg));
-//		tfSoc.setText(String.valueOf(socavg));
-//		tfSic.setText(String.valueOf(sciavg));
 		DefaultCategoryDataset dataset1 = new DefaultCategoryDataset(); // bar chart 1
 		// 데이터 입력 ( 값, 범례, 카테고리 )
 		// 그래프 1
-		int kor=((SearchTablePanel) pList).getKoravg();
-		int eng=((SearchTablePanel) pList).getEngavg();
-		int math=((SearchTablePanel) pList).getMathavg();
-		int soc=((SearchTablePanel) pList).getSocavg();
-		int sci=((SearchTablePanel) pList).getSciavg();
+		dataset1.addValue(list.getKoravg(), "S1", "국어");
+		System.out.println(list.getTfKor());
+		System.out.println(list.getKoravg());
+		dataset1.addValue(list.getEngavg(), "S1", "영어");
 
-		dataset1.addValue(kor, "S1", "국어");
-		
-		dataset1.addValue(eng, "S1", "영어");
+		dataset1.addValue(list.getMathavg(), "S1", "수학");
 
-		dataset1.addValue(math, "S1", "수학");
+		dataset1.addValue(list.getSocavg(), "S1", "사회");
 
-		dataset1.addValue(soc, "S1", "사회");
-
-		dataset1.addValue(sci, "S1", "과학");
+		dataset1.addValue(list.getSciavg(), "S1", "과학");
 
 		// 그래프 2
 
@@ -269,3 +178,4 @@ public class SearchManagerUI extends AbstractManagerUI<StudentDto> implements Ac
 	}
 
 }
+

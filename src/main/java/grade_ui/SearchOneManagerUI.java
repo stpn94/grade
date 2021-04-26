@@ -14,7 +14,6 @@ import grade_ui_list.SearchTablePanel;
 
 public class SearchOneManagerUI extends AbstractManagerUI<StudentDto> implements ActionListener {
 	private StudentService service;
-	private ScoreStdPanel pItem;
 	private ScorePanel scorePanel;
 	private ScoreManagerUI frame;
 	
@@ -24,6 +23,7 @@ public class SearchOneManagerUI extends AbstractManagerUI<StudentDto> implements
 		
 		updateItem.setVisible(false);
 		deleteItem.setVisible(false);
+		
 		
 	}
 
@@ -45,7 +45,9 @@ public class SearchOneManagerUI extends AbstractManagerUI<StudentDto> implements
 
 	@Override
 	protected AbstractCustomTablePanel<StudentDto> createTablePanel() {
-		return new SearchTablePanel();
+		SearchTablePanel table = new SearchTablePanel();
+		table.panel.setVisible(false);
+		return table;
 	}
 
 	@Override

@@ -203,6 +203,8 @@ public class ScoreManagerUI extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, "공란이 존재합니다.");
 		} catch (NumberFormatException e3) {
 			JOptionPane.showMessageDialog(null, "형식을 확인해 주세요.");
+		} catch (NullPointerException e3) {
+			JOptionPane.showMessageDialog(null, "존재하지 않는 학생입니다.");
 		}
 
 	}

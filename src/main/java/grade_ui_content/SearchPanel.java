@@ -12,21 +12,31 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+
 import grade_dto.BanDto;
 import grade_dto.StudentDto;
 import grade_dto.SubjectDto;
 import grade_service.StudentService;
+import grade_ui.SubjAvgChart;
 import grade_ui.exception.InvalidCheckException;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.JButton;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class SearchPanel extends AbstractContentPanel<StudentDto> {
+public class SearchPanel extends AbstractContentPanel<StudentDto> implements ActionListener {
 	private JComboBox<SubjectDto> cmbOrders;
 	private JComboBox<BanDto> cmbBan;
 
 	private StudentService service = new StudentService();
 	private JSpinner tfLimit;
 	private int stds;
+	private JButton btnSubjAvg;
 
 	public void setService(StudentService service) {
 		this.service = service;
@@ -86,6 +96,23 @@ public class SearchPanel extends AbstractContentPanel<StudentDto> {
 
 		cmbOrders = new JComboBox();
 		pItem.add(cmbOrders);
+		
+		JPanel panel = new JPanel();
+		add(panel);
+		panel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JPanel panel_3 = new JPanel();
+		panel.add(panel_3);
+		
+		JPanel panel_2 = new JPanel();
+		panel.add(panel_2);
+		
+		btnSubjAvg = new JButton("과목별평균 차트");
+		btnSubjAvg.addActionListener(this);
+		panel_2.add(btnSubjAvg);
+		
+		JButton btnStdAvg = new JButton("학생별 평균차트");
+		panel_2.add(btnStdAvg);
 	}
 	
 
@@ -122,4 +149,20 @@ public class SearchPanel extends AbstractContentPanel<StudentDto> {
 
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnSubjAvg) {
+			actionPerformedBtnSubjAvg(e);
+		}
+	}
+	protected void actionPerformedBtnSubjAvg(ActionEvent e) {
+		SubjAvgChart demo = new SubjAvgChart();
+
+		JFreeChart chart = demo.getChart();
+
+		ChartFrame frame1 = new ChartFrame("Bar Chart", chart);
+
+		frame1.setSize(800, 400);
+
+		frame1.setVisible(true);
+	}
 }

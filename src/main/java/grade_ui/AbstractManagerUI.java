@@ -127,6 +127,9 @@ public abstract class AbstractManagerUI<T> extends JFrame implements ActionListe
 		} catch (NumberFormatException e2) {
 			JOptionPane.showMessageDialog(null, "형식을 확인해 주세요");
 			e2.printStackTrace();
+		}catch (NullPointerException e2) {
+			JOptionPane.showMessageDialog(null, "존재하지 않는 학생합니다.");
+			e2.printStackTrace();
 		}
 	}
 

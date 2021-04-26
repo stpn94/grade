@@ -126,7 +126,7 @@ public class Main extends JFrame implements ActionListener {
 	protected void actionPerformedBtnVerifyByAll(ActionEvent e) {
 		searchframe = new SearchManagerUI();
 		searchframe.setTitle("전체 조회");
-		searchframe.setBounds(312, 100, 748, 524);
+		searchframe.setBounds(312, 100, 748, 900);
 		
 		searchframe.setVisible(true);
 	}

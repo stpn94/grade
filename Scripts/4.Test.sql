@@ -96,7 +96,7 @@ select stdNo, stdName, ban from student;
 select stdNo,pic,gender,birthday from newoldtable;
 -- 학생 추가
 
-INSERT INTO student VALUES (2031,'아이다',1);
+INSERT INTO student VALUES (0001,'아이다',1);
 
 -- 학생 수정
 

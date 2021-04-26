@@ -1,17 +1,40 @@
 package grade_ui_list;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.labels.CategoryItemLabelGenerator;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.DatasetRenderingOrder;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.ui.TextAnchor;
 
 import grade_dto.StudentDto;
 import grade_service.StudentService;
+import grade_ui.SearchManagerUI;
 import grade_ui.exception.NotSelectedException;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 
-public class SearchTablePanel extends AbstractCustomTablePanel<StudentDto> {
+public class SearchTablePanel extends AbstractCustomTablePanel<StudentDto> implements ActionListener {
 	private StudentService service;
 	private int koravg;
 	private int engavg;
@@ -24,15 +47,61 @@ public class SearchTablePanel extends AbstractCustomTablePanel<StudentDto> {
 	private JTextField tfSoc;
 	private JTextField tfSic;
 	public int stds;
+	public JPanel panel;
+	private JTabbedPane tabbedPane;
+	public JPanel pSubjChart;
+	private JPanel pStuChart;
+	static int kor;
+	
+	public int getKoravg() {
+		return koravg;
+	}
+
+	public int getEngavg() {
+		return engavg;
+	}
+
+	public int getMathavg() {
+		return mathavg;
+	}
+
+	public int getSocavg() {
+		return socavg;
+	}
+
+	public int getSciavg() {
+		return sciavg;
+	}
+	public JTextField getTfKor() {
+		return tfKor;
+	}
+
+	public JTextField getTfEng() {
+		return tfEng;
+	}
+
+	public JTextField getTfMath() {
+		return tfMath;
+	}
+
+	public JTextField getTfSoc() {
+		return tfSoc;
+	}
+
+	public JTextField getTfSic() {
+		return tfSic;
+	}
 
 	public SearchTablePanel() {
+		
 		initialize();
+		
 	}
 
 	private void initialize() {
 
 		JPanel panel_1 = new JPanel();
-		add(panel_1, BorderLayout.SOUTH);
+		add(panel_1, BorderLayout.NORTH);
 		panel_1.setLayout(new GridLayout(0, 7, 0, 0));
 
 		JLabel label = new JLabel("");
@@ -68,6 +137,18 @@ public class SearchTablePanel extends AbstractCustomTablePanel<StudentDto> {
 		tfSic.setEditable(false);
 		tfSic.setColumns(10);
 		panel_1.add(tfSic);
+		
+		panel = new JPanel();
+		add(panel, BorderLayout.SOUTH);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		panel.add(tabbedPane);
+		
+		pSubjChart = new JPanel();
+		tabbedPane.addTab("과목별 평균 차트", null, pSubjChart, null);
+		pSubjChart.setLayout(new GridLayout(1, 0, 0, 0));
+		
 	}
 
 	@Override
@@ -127,10 +208,13 @@ public class SearchTablePanel extends AbstractCustomTablePanel<StudentDto> {
 
 		}
 		tfKor.setText(String.valueOf(koravg));
+		kor=Integer.parseInt(tfKor.getText());
+		
 		tfEng.setText(String.valueOf(engavg));
 		tfMath.setText(String.valueOf(mathavg));
 		tfSoc.setText(String.valueOf(socavg));
 		tfSic.setText(String.valueOf(sciavg));
+		
 	}
 
 	@Override
@@ -166,5 +250,13 @@ public class SearchTablePanel extends AbstractCustomTablePanel<StudentDto> {
 
 	public void setService(StudentService service) {
 		this.service = service;
+	}
+	
+	
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
