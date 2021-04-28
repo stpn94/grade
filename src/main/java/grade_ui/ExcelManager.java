@@ -25,7 +25,8 @@ import grade_dto.StudentDto;
 import grade_dto.SubjectDto;
 
 public class ExcelManager {
-/*	public static void main(String[] args) throws EncryptedDocumentException, IOException, InvalidFormatException {
+	
+	public static void main(String[] args) throws EncryptedDocumentException, IOException, InvalidFormatException {
 		List<StudentDto> studentList = getStudentList();
 
 //        // id 기준 오름차순 정렬
@@ -50,11 +51,11 @@ public class ExcelManager {
 					studentDTO.getJumsu().get(3).getJumsu()+ ", "+
 					studentDTO.getJumsu().get(4).getJumsu());
 		}
-//        writeExcelFile(studentList);
+        writeExcelFile(studentList);
 	}
-*/
-	public void writeExcelFile(List<StudentDto> list) throws EncryptedDocumentException, IOException {
-		String filePath = "student_transfer.xlsx"; // 저장할 파일 경로
+
+	public static void writeExcelFile(List<StudentDto> list) throws EncryptedDocumentException, IOException {
+		String filePath = "C:\\Users\\lenovo\\Documents\\student_transfer.xlsx"; // 저장할 파일 경로
 		System.out.println(filePath);
 		FileOutputStream fos = new FileOutputStream(filePath);
 
@@ -69,6 +70,12 @@ public class ExcelManager {
 			curRow.createCell(0).setCellValue(list.get(i).getStdNo()); // row에 각 cell 저장
 			curRow.createCell(1).setCellValue(list.get(i).getStdName());
 			curRow.createCell(2).setCellValue(list.get(i).getBan().getBanNo());
+			curRow.createCell(3).setCellValue(list.get(i).getJumsu().get(0).getJumsu());
+			curRow.createCell(4).setCellValue(list.get(i).getJumsu().get(1).getJumsu());
+			curRow.createCell(5).setCellValue(list.get(i).getJumsu().get(2).getJumsu());
+			curRow.createCell(6).setCellValue(list.get(i).getJumsu().get(3).getJumsu());
+			curRow.createCell(7).setCellValue(list.get(i).getJumsu().get(4).getJumsu());
+			curRow.createCell(8).setCellValue(list.get(i).getAvg());
 		}
 
 		workbook.write(fos);

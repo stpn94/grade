@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -70,8 +71,9 @@ public class ScoreManagerUI extends JFrame implements ActionListener {
 	private JButton btnLoadExcel;
 	private JTextArea textArea;
 	private JLabel lblNewLabel;
-	private JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
+	private JFileChooser chooser;
 	private static String chooseFilePath;
+	private JButton btnExport;
 
 	private void setService() {
 		service = new StudentService();
@@ -157,6 +159,10 @@ public class ScoreManagerUI extends JFrame implements ActionListener {
 		btnLoadExcel.addActionListener(this);
 		btnLoadExcel.setHorizontalAlignment(SwingConstants.LEFT);
 		pExcelBtn.add(btnLoadExcel);
+		
+		btnExport = new JButton("내보내기");
+		btnExport.addActionListener(this);
+		pExcelBtn.add(btnExport);
 
 		textArea = new JTextArea();
 		textArea.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -177,6 +183,14 @@ public class ScoreManagerUI extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnExport) {
+			try {
+				actionPerformedBtnExport(e);
+			} catch (EncryptedDocumentException | InvalidFormatException | IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		if (e.getSource() == btnLoadExcel) {
 			if (e.getActionCommand().equals("불러오기")) {
 				actionPerformedBtnLoadExcel(e);
@@ -245,9 +259,11 @@ public class ScoreManagerUI extends JFrame implements ActionListener {
 	}
 
 	protected void actionPerformedBtnLoadExcel(ActionEvent e) {
+		chooser = new JFileChooser(System.getProperty("user.dir"));
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("xlsx", "xlsx", "xls");
 		chooser.setMultiSelectionEnabled(false);
 		chooser.setFileFilter(filter);
+		
 
 		int res = chooser.showOpenDialog(null);
 		if (res != JFileChooser.APPROVE_OPTION) {
@@ -307,21 +323,45 @@ public class ScoreManagerUI extends JFrame implements ActionListener {
 	}
 
 	public void writeExcelFile(List<StudentDto> list) throws EncryptedDocumentException, IOException {
-		String filePath = "student_transfer.xlsx"; // 저장할 파일 경로
+		String filePath = chooseFilePath+".xlsx"; // 저장할 파일 경로
 		System.out.println(filePath);
 		FileOutputStream fos = new FileOutputStream(filePath);
 
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		XSSFSheet sheet = workbook.createSheet("studentList"); // sheet 생성
 
-		XSSFRow curRow;
-
+		XSSFRow curRow = null;
+		String A = "학번";
+		String B = "학생 명";
+		String C = "학반";
+		String D = "국어";
+		String E = "영어";
+		String F = "수학";
+		String G = "사회";
+		String H = "과학";
+		String I = "평균";
+		curRow = sheet.createRow(0);
+		curRow.createCell(0).setCellValue("학번");
+		curRow.createCell(1).setCellValue(B);
+		curRow.createCell(2).setCellValue(C);
+		curRow.createCell(3).setCellValue(D);
+		curRow.createCell(4).setCellValue(E);
+		curRow.createCell(5).setCellValue(F);
+		curRow.createCell(6).setCellValue(G);
+		curRow.createCell(7).setCellValue(H);
+		curRow.createCell(8).setCellValue(I);
 		int row = list.size(); // list 크기
 		for (int i = 0; i < row; i++) {
-			curRow = sheet.createRow(i); // row 생성
+			curRow = sheet.createRow(i+1); // row 생성
 			curRow.createCell(0).setCellValue(list.get(i).getStdNo()); // row에 각 cell 저장
 			curRow.createCell(1).setCellValue(list.get(i).getStdName());
 			curRow.createCell(2).setCellValue(list.get(i).getBan().getBanNo());
+			curRow.createCell(3).setCellValue(list.get(i).getJumsu().get(0).getJumsu());
+			curRow.createCell(4).setCellValue(list.get(i).getJumsu().get(1).getJumsu());
+			curRow.createCell(5).setCellValue(list.get(i).getJumsu().get(2).getJumsu());
+			curRow.createCell(6).setCellValue(list.get(i).getJumsu().get(3).getJumsu());
+			curRow.createCell(7).setCellValue(list.get(i).getJumsu().get(4).getJumsu());
+			curRow.createCell(8).setCellValue(list.get(i).getAvg());
 		}
 
 		workbook.write(fos);
@@ -407,5 +447,29 @@ public class ScoreManagerUI extends JFrame implements ActionListener {
 		default:
 			return "";
 		}
+	}
+	protected void actionPerformedBtnExport(ActionEvent e) throws EncryptedDocumentException, InvalidFormatException, IOException {
+		chooser=new JFileChooser();//FileChooser 선언
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("xlsx", "xlsx", "xls");
+		chooser.setMultiSelectionEnabled(false);
+		chooser.setFileFilter(filter);
+		
+		chooser.setDialogTitle("Choose path");//FileChooser 창 제목
+		chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); //경로만
+		int option=chooser.showSaveDialog(null); //FileChooser 창안의 버튼 인텍스 반환
+		
+		if(option == JFileChooser.APPROVE_OPTION) { //승인버트
+			File f=chooser.getSelectedFile();
+			String directory=f.getAbsolutePath();//File f의 절대경로
+			System.out.println(directory);
+			chooseFilePath=directory;
+		}else {
+			System.out.println("저장 취소");
+		}
+		
+		
+		
+		List<StudentDto> studentList = service.showStudents();
+		writeExcelFile(studentList);
 	}
 }

@@ -191,6 +191,7 @@ public class SearchManagerUI extends AbstractManagerUI<StudentDto> implements Ac
 		Font axisF = new Font("Gulim", Font.PLAIN, 14);
 
 		// 렌더링 세팅
+		renderer.setBaseItemLabelFont(f);
 
 		// 그래프 1
 
@@ -200,7 +201,6 @@ public class SearchManagerUI extends AbstractManagerUI<StudentDto> implements Ac
 
 		renderer.setBasePositiveItemLabelPosition(p_center);
 
-		renderer.setBaseItemLabelFont(f);
 
 //        renderer.setGradientPaintTransformer(new StandardGradientPaintTransformer(
 
