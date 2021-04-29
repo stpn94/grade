@@ -75,7 +75,7 @@ public class StudentManagerUI extends AbstractManagerUI<StudentDto> {
 		StudentDto delStd = pList.getItem();
 		service.removeStudent(delStd);
 		pList.loadData();
-		JOptionPane.showMessageDialog(null, delStd + "삭제 되었습니다.");
+		JOptionPane.showMessageDialog(null, "삭제 되었습니다.");
 
 	}
 
@@ -86,7 +86,7 @@ public class StudentManagerUI extends AbstractManagerUI<StudentDto> {
 		pList.loadData();
 		pContent.clearTf();
 		btnAdd.setText("추가");
-		JOptionPane.showMessageDialog(null, updateStd.getStdName() + "정보가 수정되었습니다.");
+		JOptionPane.showMessageDialog(null, "정보가 수정되었습니다.");
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class StudentManagerUI extends AbstractManagerUI<StudentDto> {
 		service.addStudent(stdAdd);
 		pList.loadData();
 		pContent.clearTf();
-		JOptionPane.showMessageDialog(null, stdAdd.getStdName() + " 추가했습니다.");
+		JOptionPane.showMessageDialog(null, " 추가했습니다.");
 	}
 
 	@Override

@@ -123,7 +123,7 @@ public class BanPanel extends JPanel implements ActionListener {
 				service.addBan(ban);
 				pContent.clearTf();
 				btnAdd.setText("추가");
-				String message = String.format("%d%s", selBan.getBanNo(), selBan.getBanCode());
+				String message = String.format(" .__%s", selBan.getBanCode());
 				JOptionPane.showMessageDialog(null, message);
 			}
 		} catch (Exception e2) {

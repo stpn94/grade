@@ -57,7 +57,7 @@ public class Main extends JFrame implements ActionListener {
 	private void initialize() {
 		setTitle("성적관리프로그램");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 214, 530);
+		setBounds(100, 100, 223, 530);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

@@ -123,7 +123,7 @@ public class SubjectPanel extends JPanel implements ActionListener {
 				service.addSubject(subj);
 				pContent.clearTf();
 				btnAdd.setText("추가");
-				String message = String.format("%d%s", selSubj.getSubjNo(), selSubj.getSubjName());
+				String message = String.format(".__%s", selSubj.getSubjName());
 				JOptionPane.showMessageDialog(null, message);
 			}
 		} catch (Exception e2) {
