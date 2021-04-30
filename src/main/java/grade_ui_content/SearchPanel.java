@@ -107,12 +107,6 @@ public class SearchPanel extends AbstractContentPanel<StudentDto> implements Act
 		JPanel panel_2 = new JPanel();
 		panel.add(panel_2);
 		
-		btnSubjAvg = new JButton("과목별평균 차트");
-		btnSubjAvg.addActionListener(this);
-		panel_2.add(btnSubjAvg);
-		
-		JButton btnStdAvg = new JButton("학생별 평균차트");
-		panel_2.add(btnStdAvg);
 	}
 	
 
